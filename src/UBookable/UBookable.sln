@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UBookable", "UBookable\UBookable.csproj", "{50C6DCDC-C80A-4607-A41D-D657B881229E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UBookable.Umbraco", "UBookable.Umbraco\UBookable.Umbraco.csproj", "{7870FFE2-D675-4401-8F3A-E5458174D5AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50C6DCDC-C80A-4607-A41D-D657B881229E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C6DCDC-C80A-4607-A41D-D657B881229E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C6DCDC-C80A-4607-A41D-D657B881229E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C6DCDC-C80A-4607-A41D-D657B881229E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7870FFE2-D675-4401-8F3A-E5458174D5AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7870FFE2-D675-4401-8F3A-E5458174D5AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7870FFE2-D675-4401-8F3A-E5458174D5AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7870FFE2-D675-4401-8F3A-E5458174D5AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
