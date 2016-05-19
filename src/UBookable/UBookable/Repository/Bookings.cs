@@ -1,0 +1,58 @@
+﻿using UBookable.Models;
+using System.Collections.Generic;
+using Umbraco.Core.Persistence;
+
+
+namespace UBookable.Repository
+{
+    public static class Bookings
+    {
+        public static IList<Booking> GetAll()
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Fetch<Booking>("SELECT * FROM UBBookings ORDER BY StartDate");
+        }
+
+        public static Page<Booking> GetAllPaged(int Page, int RecordsPerPage)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Page<Booking>(Page, RecordsPerPage, "SELECT * FROM UBBookings ORDER BY StartDate");
+        }
+
+        public static IList<Booking> GetAllByBookerID(int AuthorID)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", AuthorID);
+        }
+
+        public static Page<Booking> GetAllPagedByBookerID(int Page, int RecordsPerPage, int AuthorID)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Page<Booking>(Page, RecordsPerPage, "SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", AuthorID);
+        }
+
+        public static Booking GetByBookingID(int BookingID)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            List<Booking> Records = db.Fetch<Booking>("SELECT * FROM UBBookings WHERE BookingID = @0", BookingID);
+
+            if (Records.Count > 0)
+                return Records[0];
+            else
+                return null;
+        }
+
+        public static Booking Save(Booking item)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            db.Save(item);
+            return item;
+        }
+
+        public static int DeleteByBookingID(int BookingID)
+        {
+            UmbracoDatabase _database = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return _database.Execute("DELETE FROM UBBookings WHERE BookingID = @0", BookingID);
+        }
+    }
+}
