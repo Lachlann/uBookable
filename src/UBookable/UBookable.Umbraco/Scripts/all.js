@@ -6,20 +6,46 @@ if (!DEBUG) {
         console[methods[i]] = function () { };
     }
 }
-console.log("GO")
-
-uBookable.SaveBooker("Kirsteen").done(function (booker) {
-    console.log("booker");
-    console.log(booker);
-    uBookable.SaveBooking('151', booker.BookerID, new Date("October 15, 2016 11:13:00"), new Date("October 19, 2016 11:13:00")).
-        done(function (data) {
-            console.log("booking");
-            console.log(data);
-        });
-});
+console.log(new Date("06-14-2016"));
 
 
 
-//new Date("October 13, 2016 11:13:00")
+/*	*/
 
-//new Date("October 14, 2016 11:13:00")
+  // IIFE - Immediately Invoked Function Expression
+  (function(yourcode) {
+
+      // The global jQuery object is passed as a parameter
+      yourcode(window.jQuery, window, document);
+
+  }(function($, window, document) {
+
+      // The $ is now locally scoped 
+
+      // Listen for the jQuery ready event on the document
+      $(function() {
+          var dateconfig = {
+              startDate: new Date(),
+              selectForward: true,
+              beforeShowDay: function (t) {
+
+                  var valid = !(t.withoutTime().getTime() === new Date("06-14-2016").getTime());  //disable saturday and sunday
+                  var _class = '';
+                  var _tooltip = valid ? '' : 'unavailable';
+                  return [valid, _class, _tooltip];
+              }
+          }
+          $('.datepicker').dateRangePicker(dateconfig);
+      });
+
+      // The rest of the code goes here!
+
+  }
+));
+
+
+  Date.prototype.withoutTime = function () {
+      var d = new Date(this);
+      d.setHours(0, 0, 0, 0, 0);
+      return d
+  }

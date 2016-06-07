@@ -1,17 +1,41 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.TestPage>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using UBookable.ViewModels;
+@using Our.Umbraco.Ditto;
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
 @{
     Layout = null;
+
 }
 
 <html>
 <head>
     <title> test</title>
+    <link rel="stylesheet" href="~/bower_components/jquery-date-range-picker/dist/daterangepicker.min.css">
 </head>
 <body>
     <h1>You bookable test page</h1>
 
+    @foreach (IPublishedContent item in Model.Content.Children)
+    {
+        BookableSettings settings = item.As<BookableSettings>();
+        if (settings.EnabledBooking)
+        {
+            <div class="bookable">
+                <h2>@item.Name</h2>
+                Is bookable: @settings.EnabledBooking
+                Minimum booking time: @settings.MinimumBookingLength @settings.MinimumBookingTimePeriod
+                <input class="datepicker" />
+            </div>
+        }
+    }
+
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="~/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="~/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/bower_components/jquery-date-range-picker/dist/jquery.daterangepicker.min.js"></script>
+    
     <script src="/scripts/ubookable/ubookable.js"></script>
     <script src="/scripts/all.js"></script>
 </body>
