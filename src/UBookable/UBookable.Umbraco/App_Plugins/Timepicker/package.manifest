@@ -1,0 +1,22 @@
+﻿{
+    //you can define multiple editors
+    propertyEditors: [
+        {
+            /*this must be a unique alias*/
+            alias: "Timepicker",
+            /*the name*/
+            name: "Timepicker",
+            /*the icon*/
+            icon: "icon-time",
+            /*the HTML file we will load for the editor*/
+            editor: {
+                view: "~/App_Plugins/Timepicker/timepicker.html"
+            }
+        }
+    ]
+    ,
+    //array of files we want to inject into the application on app_start
+    javascript: [
+        '~/App_Plugins/Timepicker/Timepicker.controller.js'
+    ]
+}

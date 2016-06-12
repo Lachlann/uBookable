@@ -297,16 +297,18 @@
   <ItemGroup>
     <Compile Include="API\BookingController.cs" />
     <Compile Include="ApplicationEvents\CreateTables.cs" />
+    <Compile Include="Helpers\UBookableHelper.cs" />
     <Compile Include="Models\Booker.cs" />
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\Calender\TimeSlot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Bookers.cs" />
     <Compile Include="Repository\Bookings.cs" />
+    <Compile Include="TypeConvertors\TimeTypeConvertor.cs" />
     <Compile Include="ViewModels\BookableSettings.cs" />
+    <Compile Include="ViewModels\Time.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

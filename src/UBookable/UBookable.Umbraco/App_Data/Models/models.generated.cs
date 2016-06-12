@@ -18,7 +18,7 @@ using Umbraco.Web;
 using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
-[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -83,6 +83,33 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Availability per slot: This is the total number of bookings allowed per slot. Leave blank if there is no limit.
+		///</summary>
+		[ImplementPropertyType("availabilityPerSlot")]
+		public int AvailabilityPerSlot
+		{
+			get { return BookingSettings.GetAvailabilityPerSlot(this); }
+		}
+
+		///<summary>
+		/// Daily end time
+		///</summary>
+		[ImplementPropertyType("dailyEndTime")]
+		public object DailyEndTime
+		{
+			get { return BookingSettings.GetDailyEndTime(this); }
+		}
+
+		///<summary>
+		/// Daily start time
+		///</summary>
+		[ImplementPropertyType("dailyStartTime")]
+		public object DailyStartTime
+		{
+			get { return BookingSettings.GetDailyStartTime(this); }
+		}
+
+		///<summary>
 		/// Enabled booking: Select this option to enable booking for this item
 		///</summary>
 		[ImplementPropertyType("enabledBooking")]
@@ -111,9 +138,18 @@ namespace Umbraco.Web.PublishedContentModels
 	}
 
 	// Mixin content Type 1054 with alias "bookingSettings"
-	/// <summary>Booking Settings</summary>
+	/// <summary>Booking Settings [Timeslot]</summary>
 	public partial interface IBookingSettings : IPublishedContent
 	{
+		/// <summary>Availability per slot</summary>
+		int AvailabilityPerSlot { get; }
+
+		/// <summary>Daily end time</summary>
+		object DailyEndTime { get; }
+
+		/// <summary>Daily start time</summary>
+		object DailyStartTime { get; }
+
 		/// <summary>Enabled booking</summary>
 		bool EnabledBooking { get; }
 
@@ -124,7 +160,7 @@ namespace Umbraco.Web.PublishedContentModels
 		object MinimumBookingTimePeriod { get; }
 	}
 
-	/// <summary>Booking Settings</summary>
+	/// <summary>Booking Settings [Timeslot]</summary>
 	[PublishedContentModel("bookingSettings")]
 	public partial class BookingSettings : PublishedContentModel, IBookingSettings
 	{
@@ -148,6 +184,42 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Availability per slot: This is the total number of bookings allowed per slot. Leave blank if there is no limit.
+		///</summary>
+		[ImplementPropertyType("availabilityPerSlot")]
+		public int AvailabilityPerSlot
+		{
+			get { return GetAvailabilityPerSlot(this); }
+		}
+
+		/// <summary>Static getter for Availability per slot</summary>
+		public static int GetAvailabilityPerSlot(IBookingSettings that) { return that.GetPropertyValue<int>("availabilityPerSlot"); }
+
+		///<summary>
+		/// Daily end time
+		///</summary>
+		[ImplementPropertyType("dailyEndTime")]
+		public object DailyEndTime
+		{
+			get { return GetDailyEndTime(this); }
+		}
+
+		/// <summary>Static getter for Daily end time</summary>
+		public static object GetDailyEndTime(IBookingSettings that) { return that.GetPropertyValue("dailyEndTime"); }
+
+		///<summary>
+		/// Daily start time
+		///</summary>
+		[ImplementPropertyType("dailyStartTime")]
+		public object DailyStartTime
+		{
+			get { return GetDailyStartTime(this); }
+		}
+
+		/// <summary>Static getter for Daily start time</summary>
+		public static object GetDailyStartTime(IBookingSettings that) { return that.GetPropertyValue("dailyStartTime"); }
 
 		///<summary>
 		/// Enabled booking: Select this option to enable booking for this item

@@ -306,6 +306,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Timepicker\Timepicker.controller.js" />
+    <Content Include="App_Plugins\Timepicker\timepicker.html" />
+    <Content Include="bower_components\clndr\clndr.min.js" />
+    <Content Include="bower_components\clndr\demo\css\clndr.css" />
+    <Content Include="bower_components\clndr\demo\demo.js" />
+    <Content Include="bower_components\clndr\demo\index.html" />
+    <Content Include="bower_components\clndr\Gruntfile.js" />
+    <Content Include="bower_components\clndr\src\clndr.js" />
     <Content Include="bower_components\jquery-date-range-picker\demo.js" />
     <Content Include="bower_components\jquery-date-range-picker\dist\daterangepicker.min.css" />
     <Content Include="bower_components\jquery-date-range-picker\dist\jquery.daterangepicker.min.js" />
@@ -729,6 +737,11 @@
     <Content Include="bower_components\moment\templates\globals.js" />
     <Content Include="bower_components\moment\templates\locale-header.js" />
     <Content Include="bower_components\moment\templates\test-header.js" />
+    <Content Include="bower_components\mustache.js\mustache.js" />
+    <Content Include="bower_components\mustache.js\mustache.min.js" />
+    <Content Include="bower_components\mustache.js\spec\_files\bom_as_whitespace.js" />
+    <Content Include="bower_components\mustache.js\spec\_files\bom_as_whitespace.txt" />
+    <Content Include="css\cal-style.css" />
     <Content Include="packages.config" />
     <Content Include="App_Plugins\ModelsBuilder\package.manifest" />
     <Content Include="Scripts\all.js" />
@@ -776,6 +789,37 @@
     <Content Include="bower_components\moment\CHANGELOG.md" />
     <Content Include="bower_components\moment\LICENSE" />
     <Content Include="bower_components\moment\README.md" />
+    <Content Include="bower_components\clndr\.bower.json" />
+    <Content Include="bower_components\clndr\bower.json" />
+    <Content Include="bower_components\clndr\CHANGELOG.md" />
+    <Content Include="bower_components\clndr\demo\css\clndr.less" />
+    <Content Include="bower_components\clndr\LICENSE.md" />
+    <Content Include="bower_components\clndr\package.json" />
+    <Content Include="bower_components\clndr\README.md" />
+    <Content Include="bower_components\mustache.js\.bower.json" />
+    <Content Include="bower_components\mustache.js\bin\mustache" />
+    <Content Include="bower_components\mustache.js\bower.json" />
+    <Content Include="bower_components\mustache.js\CHANGELOG.md" />
+    <Content Include="bower_components\mustache.js\hooks\install-hooks.sh" />
+    <Content Include="bower_components\mustache.js\hooks\pre-commit" />
+    <Content Include="bower_components\mustache.js\LICENSE" />
+    <Content Include="bower_components\mustache.js\MIGRATING.md" />
+    <Content Include="bower_components\mustache.js\mustache.js.nuspec" />
+    <Content Include="bower_components\mustache.js\package.json" />
+    <Content Include="bower_components\mustache.js\Rakefile" />
+    <Content Include="bower_components\mustache.js\README.md" />
+    <Content Include="bower_components\mustache.js\spec\_files\bom_as_whitespace.mustache" />
+    <Content Include="bower_components\mustache.js\wrappers\dojo\mustache.js.post" />
+    <Content Include="bower_components\mustache.js\wrappers\dojo\mustache.js.pre" />
+    <Content Include="bower_components\mustache.js\wrappers\jquery\mustache.js.post" />
+    <Content Include="bower_components\mustache.js\wrappers\jquery\mustache.js.pre" />
+    <Content Include="bower_components\mustache.js\wrappers\mootools\mustache.js.post" />
+    <Content Include="bower_components\mustache.js\wrappers\mootools\mustache.js.pre" />
+    <Content Include="bower_components\mustache.js\wrappers\qooxdoo\mustache.js.post" />
+    <Content Include="bower_components\mustache.js\wrappers\qooxdoo\mustache.js.pre" />
+    <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.post" />
+    <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.pre" />
+    <Content Include="App_Plugins\Timepicker\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

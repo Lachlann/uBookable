@@ -6,36 +6,43 @@ if (!DEBUG) {
         console[methods[i]] = function () { };
     }
 }
-console.log(new Date("06-14-2016"));
 
 
-
-/*	*/
-
-  // IIFE - Immediately Invoked Function Expression
   (function(yourcode) {
-
-      // The global jQuery object is passed as a parameter
       yourcode(window.jQuery, window, document);
 
   }(function($, window, document) {
 
-      // The $ is now locally scoped 
-
-      // Listen for the jQuery ready event on the document
       $(function() {
-          var dateconfig = {
-              startDate: new Date(),
-              selectForward: true,
-              beforeShowDay: function (t) {
+          $('.full-clndr').clndr({
+              render: function (data) {
+                  return Mustache.render($('#calendar-tmpl').html(), data);
+              },
+              clickEvents: {
+                  click: function (target) {
+                      console.log(target);
+                      var bookable = $(target.element).closest(".bookable");
+                      var id = bookable.attr("data-id");
+                      var startTime = $.parseJSON(bookable.attr("data-start-time"));
+                      var endTime = $.parseJSON(bookable.attr("data-end-time"));
+                      var period = bookable.attr("data-period");
+                      var duration = bookable.attr("data-duration");
 
-                  var valid = !(t.withoutTime().getTime() === new Date("06-14-2016").getTime());  //disable saturday and sunday
-                  var _class = '';
-                  var _tooltip = valid ? '' : 'unavailable';
-                  return [valid, _class, _tooltip];
+                      var startDateTimeUTC = target.date._d.setHours(startTime.hours, startTime.mins);
+                      var endDateTimeUTC = target.date._d.setHours(endTime.hours, endTime.mins);
+
+                      uBookable.GetTimeSlot(id, startDateTimeUTC, endDateTimeUTC, period, duration).done(function (timeslots) {
+                          for (var x = 0, length = timeslots.length; x < length; x++)
+                          {
+                              timeslots[x].StartTime = moment(timeslots[x].StartTime.FixSerialisedDate()).format('HH:SS');
+                              timeslots[x].EndTime = moment(timeslots[x].EndTime.FixSerialisedDate()).format('HH:SS');
+                          }
+                          timeslots["Title"] = "Available slots for " + target.date.format("dddd, MMMM Do YYYY")
+                          $("#day-bookings").html(Mustache.render($('#day-bookings-tmpl').html(), timeslots));
+                      })
+                  }
               }
-          }
-          $('.datepicker').dateRangePicker(dateconfig);
+          });
       });
 
       // The rest of the code goes here!
@@ -48,4 +55,8 @@ console.log(new Date("06-14-2016"));
       var d = new Date(this);
       d.setHours(0, 0, 0, 0, 0);
       return d
+  }
+
+  String.prototype.FixSerialisedDate = function () {
+      return new Date(parseInt(this.replace("/Date(", "").replace(")/", ""), 10));
   }

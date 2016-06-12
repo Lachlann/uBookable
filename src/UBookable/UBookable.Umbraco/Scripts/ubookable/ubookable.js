@@ -13,6 +13,18 @@
         });
     }
 
+    function _getTimeSlots(id, startdate, enddate, period, duration)
+    {
+        var params = {};
+        params["start"] = startdate;
+        params["end"] = enddate;
+        params["Id"] = id;
+        params["period"] = period;
+        params["duration"] = duration;
+
+        return $.getJSON('/umbraco/api/booking/getdaybookingslots', params)
+
+    }
 
     function _saveBooker(name, memberid) {
         var memId = (memberid !== undefined) ? memberid : '';
@@ -29,7 +41,8 @@
 
     return {
         SaveBooking: _saveBooking,
-        SaveBooker: _saveBooker
+        SaveBooker: _saveBooker,
+        GetTimeSlot: _getTimeSlots
     };
 })(jQuery);
 

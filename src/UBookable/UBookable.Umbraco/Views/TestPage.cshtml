@@ -11,32 +11,89 @@
 <html>
 <head>
     <title> test</title>
-    <link rel="stylesheet" href="~/bower_components/jquery-date-range-picker/dist/daterangepicker.min.css">
+    <link rel="stylesheet" href="/css/cal-style.css">
 </head>
 <body>
-    <h1>You bookable test page</h1>
+    <div class="block bg-red header">
+        <div class="inner">
+            <h1>You bookable test page</h1>
+        </div>
+    </div>
+
 
     @foreach (IPublishedContent item in Model.Content.Children)
     {
         BookableSettings settings = item.As<BookableSettings>();
         if (settings.EnabledBooking)
         {
-            <div class="bookable">
-                <h2>@item.Name</h2>
-                Is bookable: @settings.EnabledBooking
-                Minimum booking time: @settings.MinimumBookingLength @settings.MinimumBookingTimePeriod
-                <input class="datepicker" />
-            </div>
+            <section class="bookable block bg-green center"
+                     data-id="@item.Id"
+                     data-start-time='@settings.DailyStartTime'
+                     data-end-time='@settings.DailyEndTime'
+                     data-period="@settings.MinimumBookingTimePeriod"
+                     data-duration="@settings.MinimumBookingLength">
+                <div class="inner">
+                    <h1>@item.Name</h1>
+                    <p>Is bookable: @settings.EnabledBooking</p>
+                    <p>Minimum booking time: @settings.MinimumBookingLength @settings.MinimumBookingTimePeriod</p>
+                    <p>Daily start time: @settings.DailyStartTime.ToString()</p>
+                    <p>Daily end time: @settings.DailyEndTime.ToString()</p>
+                    <p>Availability per slot: @settings.AvailabilityPerSlot</p>
+                    <div class="full-clndr  clearfix"></div>
+                    <div id="day-bookings"></div>
+                </div>
+
+            </section>
         }
     }
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    
+
     <script type="text/javascript" src="~/bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="~/bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="~/bower_components/jquery-date-range-picker/dist/jquery.daterangepicker.min.js"></script>
-    
+    <script src="~/bower_components/clndr/src/clndr.js"></script>
+    <script src="~/bower_components/mustache.js/mustache.min.js"></script>
+
     <script src="/scripts/ubookable/ubookable.js"></script>
     <script src="/scripts/all.js"></script>
+
+    <script type="x-tmpl-mustache" id="day-bookings-tmpl">
+        <div class="booking-details">
+            <h2>{{Title}}</h2>
+            <div class="bookings">
+                {{#.}}
+                    <div class="slot">
+                        <h3>{{StartTime}} to {{EndTime}}</h3>
+                        <p>Available spaces: {{AvailableSpaces}}</p>
+                        {{#AvailableSpaces}}
+                            <a class="btn">Book It</a>
+                        {{/AvailableSpaces}}
+                    </div>
+                {{/.}}
+            </div>
+
+        </div>
+    </script>
+
+    <script type="x-tmpl-mustache" id="calendar-tmpl">
+        <div class="clndr-controls">
+            <span class="clndr-previous-button">prev</span>
+            <span class="clndr-next-button">next</span>
+            <span class="current-month">{{month}} {{year}}</span>
+        </div>
+        <div class="clndr-grid">
+            <div class="days-of-the-week clearfix">
+                {{#daysOfTheWeek}}
+                <div class="header-day">{{.}}</div>
+                {{/daysOfTheWeek}}
+            </div>
+            <div class="days">
+                {{#days}}
+                <div class="{{classes}}" id="{{id}}">{{day}}</div>
+                {{/days}}
+            </div>
+        </div>
+    </script>
+
 </body>
 </html>
