@@ -30,6 +30,22 @@ namespace UBookable.API
             return new HttpResponseMessage();
         }
 
+        [HttpPost]
+        public HttpResponseMessage AddBookingAndBooker(BookingRequest bookingRequest)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+
+            Booker createdBooker = Bookers.Save(bookingRequest.booker);
+
+            bookingRequest.booking.BookerID = createdBooker.BookerID;
+
+            Booking createdBooking = Bookings.Save(bookingRequest.booking);
+
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(createdBooking));
+            return new HttpResponseMessage();
+        }
+
         [AcceptVerbs("POST")]
         public HttpResponseMessage AddBooker(Booker booker)
         {

@@ -1,7 +1,7 @@
 ﻿using UBookable.Models;
 using System.Collections.Generic;
 using Umbraco.Core.Persistence;
-
+using System;
 
 namespace UBookable.Repository
 {
@@ -40,6 +40,12 @@ namespace UBookable.Repository
                 return Records[0];
             else
                 return null;
+        }
+
+        public static List<Booking> GetByBookingsByNodeIDAndDate(int BookableID, DateTime start, DateTime end)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE NodeID = @0  AND StartDate = @1 AND EndDate = @2", BookableID, start, end);
         }
 
         public static Booking Save(Booking item)

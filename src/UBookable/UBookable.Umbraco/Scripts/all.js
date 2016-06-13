@@ -31,21 +31,66 @@ if (!DEBUG) {
                       var startDateTimeUTC = target.date._d.setHours(startTime.hours, startTime.mins);
                       var endDateTimeUTC = target.date._d.setHours(endTime.hours, endTime.mins);
 
-                      uBookable.GetTimeSlot(id, startDateTimeUTC, endDateTimeUTC, period, duration).done(function (timeslots) {
-                          for (var x = 0, length = timeslots.length; x < length; x++)
-                          {
-                              timeslots[x].StartTime = moment(timeslots[x].StartTime.FixSerialisedDate()).format('HH:SS');
-                              timeslots[x].EndTime = moment(timeslots[x].EndTime.FixSerialisedDate()).format('HH:SS');
-                          }
-                          timeslots["Title"] = "Available slots for " + target.date.format("dddd, MMMM Do YYYY")
-                          $("#day-bookings").html(Mustache.render($('#day-bookings-tmpl').html(), timeslots));
-                      })
+
+
+                      renderTimeslots(id, startDateTimeUTC, endDateTimeUTC, period, duration, target.date.format("dddd, MMMM Do YYYY"));
+
                   }
               }
           });
+
+
+          $('.bookable').on('click', '.make-booking', function () {
+              var me = $(this);
+              var id = me.attr("data-id");
+              var start = new Date(me.attr("data-start-time"));
+              var end = new Date(me.attr("data-end-time"));
+              var name = me.prev(".name").val();
+              var period = me.attr("data-period");
+              var duration = me.attr("data-duration");
+              console.log("make booking: " + id + " " + start + " " + end + " " + name);
+
+              if (name != "" && name != undefined) {
+                  uBookable.SaveBookingAndBooker(id, start, end, name).done(function (booking) {
+                      var bookable = me.closest(".bookable");
+                      var slot = me.closest(".slot");
+                      var period = bookable.attr("data-period");
+                      var duration = bookable.attr("data-duration");
+                      var dayDate = moment(start).format("dddd, MMMM Do YYYY");
+
+                      var daystart = slot.attr("data-day-start");
+                      var dayend = slot.attr("data-day-end");
+
+                      renderTimeslots(id, daystart, dayend, period, duration, dayDate)
+                  })
+              }
+
+          })
+
       });
 
-      // The rest of the code goes here!
+      function renderTimeslots(id, startDateTimeUTC, endDateTimeUTC, period, duration, dayDate)
+      {
+          console.log(startDateTimeUTC);
+          console.log(endDateTimeUTC);
+          uBookable.GetTimeSlot(id, startDateTimeUTC, endDateTimeUTC, period, duration).done(function (timeslots) {
+              for (var x = 0, length = timeslots.length; x < length; x++) {
+                  timeslots[x].DateStart = timeslots[x].StartTime.FixSerialisedDate();
+                  timeslots[x].DateEnd = timeslots[x].EndTime.FixSerialisedDate();
+                  timeslots[x].StartTime = moment(timeslots[x].StartTime.FixSerialisedDate()).format('HH:SS');
+                  timeslots[x].EndTime = moment(timeslots[x].EndTime.FixSerialisedDate()).format('HH:SS');
+
+              }
+              timeslots["Title"] = "Available slots for " + dayDate;
+              timeslots["NodeId"] = id;
+
+              timeslots["DayStart"] = startDateTimeUTC;
+              timeslots["DayEnd"] = endDateTimeUTC;
+
+              $("#day-bookings").html(Mustache.render($('#day-bookings-tmpl').html(), timeslots));
+          })
+      }
+
 
   }
 ));

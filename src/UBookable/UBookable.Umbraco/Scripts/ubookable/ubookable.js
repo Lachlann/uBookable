@@ -1,5 +1,22 @@
 ﻿var uBookable = (function ($) {
 
+
+    function _saveBookingAndBooker(nodeid, startDate, endDate, bookerName) {
+        console.log("save booking and booker: ");
+        var testBooking = Booking(nodeid, "",startDate, endDate);
+        var testBooker = Booker('Lachlann');
+        var data = {};
+        data["booker"] = testBooker;
+        data["booking"] = testBooking;
+        return $.ajax({
+            url: '/umbraco/api/booking/addbookingandbooker',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8'
+        });
+    }
+
     function _saveBooking(nodeid, bookerid, startDate, endDate) {
         console.log("save booking");
         var testBooking = Booking(nodeid, bookerid, startDate, endDate);
@@ -42,6 +59,7 @@
     return {
         SaveBooking: _saveBooking,
         SaveBooker: _saveBooker,
+        SaveBookingAndBooker : _saveBookingAndBooker,
         GetTimeSlot: _getTimeSlots
     };
 })(jQuery);

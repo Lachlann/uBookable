@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UBookable.Models.Calender;
+using UBookable.Repository;
 using UBookable.ViewModels;
 using Umbraco.Web;
 
@@ -14,6 +15,7 @@ namespace UBookable.Helpers
             _helper = new UmbracoHelper(umbracoContext);
         }
 
+
         public List<TimeSlot> GetDailyTimeSlots(int nodeId, DateTime start, DateTime end, string period, int duration)
         {
             List<TimeSlot> timeSlots = new List<TimeSlot>();
@@ -22,7 +24,8 @@ namespace UBookable.Helpers
             while (time < end)
             {
                 DateTime slotEnd = _addSplotDuration(time, duration , period);
-                timeSlots.Add(_getTimeSlot(time, slotEnd, ubSettings.AvailabilityPerSlot));
+                int availableSpaces = ubSettings.AvailabilityPerSlot - Bookings.GetByBookingsByNodeIDAndDate(nodeId, time, slotEnd).Count;
+                timeSlots.Add(_getTimeSlot(time, slotEnd, ubSettings.AvailabilityPerSlot, availableSpaces));
                 time = slotEnd;
             }
             
@@ -34,12 +37,12 @@ namespace UBookable.Helpers
         }
 
 
-        private TimeSlot _getTimeSlot(DateTime start, DateTime end, int totalSpaces) {
+        private TimeSlot _getTimeSlot(DateTime start, DateTime end, int totalSpaces, int availableSpaces) {
             TimeSlot timeSlot = new TimeSlot
             {
                 StartTime = start,
                 EndTime = end,
-                AvailableSpaces = totalSpaces,
+                AvailableSpaces = availableSpaces,
                 TotalSpaces = totalSpaces
             };
 

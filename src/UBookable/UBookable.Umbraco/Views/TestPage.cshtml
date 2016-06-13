@@ -62,11 +62,19 @@
             <h2>{{Title}}</h2>
             <div class="bookings">
                 {{#.}}
-                    <div class="slot">
+                    <div class="slot" data-day-start="{{DayStart}}" data-day-end="{{DayEnd}}">
                         <h3>{{StartTime}} to {{EndTime}}</h3>
                         <p>Available spaces: {{AvailableSpaces}}</p>
                         {{#AvailableSpaces}}
-                            <a class="btn">Book It</a>
+                            <div class="booker details">
+                                <input type="text" class="name" placeholder="Enter your name" />
+                                <a class="btn make-booking" 
+                                   data-id="{{NodeId}}" 
+                                   data-start-time="{{DateStart}}" 
+                                   data-end-time="{{DateEnd}}"
+                                   >Book It</a>
+                            </div>
+                            
                         {{/AvailableSpaces}}
                     </div>
                 {{/.}}

@@ -300,6 +300,7 @@
     <Compile Include="Helpers\UBookableHelper.cs" />
     <Compile Include="Models\Booker.cs" />
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\BookingRequest.cs" />
     <Compile Include="Models\Calender\TimeSlot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Bookers.cs" />
