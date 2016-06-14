@@ -1,4 +1,12 @@
-﻿<div ng-controller="EventListViewEditorDialog.Controller">
-    <h1>Event details {{model.year}}</h1>
-
+﻿<div class="event-list-dialogue" ng-controller="EventListViewEditorDialog.Controller">
+    <div class="Inner">
+        <h1> {{model.DateTitle}}</h1>
+        <h2>Events booked:</h2>
+        <div class="event-row" ng-repeat="day in model.Events | filter:getByDayKey(DayKey)">
+            <div ng-repeat="event in day.Events">
+                {{event.Name}} - {{event.StartDate | fixDate }} to {{event.EndDate | fixDate }} <button ng-hide="event.Approved">Approve</button> or <button ng-hide="event.Cancelled">Cancel</button>
+            </div>
+            
+        </div>
+    </div>
 </div>

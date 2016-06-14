@@ -35,14 +35,24 @@ namespace UBookable.API
         public HttpResponseMessage GetAllBookingsByNodeId (int nodeId)
         {
             HttpContext.Current.Response.ContentType = "application/json";
-            IEnumerable<BookingResponse> allBookings = Bookings.GetByBookingsByNodeId(nodeId).Select(x => new BookingResponse
-            {
-                EndDate = ((IDictionary<string, dynamic>)x)["EndDate"],
-                StartDate = ((IDictionary<string, dynamic>)x)["StartDate"],
-                Name = ((IDictionary<string, dynamic>)x)["Name"]
-            });
+
+            IEnumerable<dynamic> bookingsByNode = Bookings.GetByBookingsByNodeId(nodeId);
+            IEnumerable<BookingResponse> allBookings = bookingsByNode.
+                Select(x => new BookingResponse
+                {
+                    EndDate = ((IDictionary<string, dynamic>)x)["EndDate"],
+                    StartDate = ((IDictionary<string, dynamic>)x)["StartDate"],
+                    Name = ((IDictionary<string, dynamic>)x)["Name"],
+                    Approved = ((IDictionary<string, dynamic>)x)["Approved"],
+                    Cancelled = ((IDictionary<string, dynamic>)x)["Cancelled"]
+                });
+
+            var groupedresponse = allBookings.GroupBy(x => x.StartDate.ToString("yyyyMMdd"),
+                (key, values) => new { Date = key, Count = values.Count(), Events = values }
+                );
+
             HttpContext.Current.Response.StatusCode = 200;
-            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(allBookings));
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(groupedresponse));
             return new HttpResponseMessage();
         }
 

@@ -1,15 +1,31 @@
 ﻿var itembasedbookingApp = angular.module("umbraco");
-app.requires.push('500tech.simple-calendar');
-itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope, $http, $routeParams, dialogService) {
+itembasedbookingApp.requires.push('500tech.simple-calendar');
+
+itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope, $filter, $http, $routeParams, dialogService) {
     var nodeId = $routeParams.id;
-   /* $http({
+    $http({
         url: "/umbraco/api/booking/getallbookingsbynodeid",
         method: "GET",
         params: { nodeId: nodeId }
     }).then(function successCallback(response) {
-        console.log(response);
-        $scope.bookings = response.data;
-    });*/
+        $scope.BookingData = response;
+        initCal(response);
+    });
+
+    function initCal(eventData) {
+        $scope.events = [];
+        for (var i = 0, length = eventData.data.length; i < length ; i++)
+        {
+            var thisGroupCount = eventData.data[i].Count;
+            for (var j = 0, lengthj = eventData.data[i].Events.length; j < lengthj ; j++) {
+                eventData.data[i].Events[j]["Count"] = thisGroupCount;
+                $scope.events.push($filter('ConvertResponseToCalData')(eventData.data[i].Events[j]));
+            }
+        }
+        console.log($scope.events);
+    }
+
+
     $scope.calendarOptions = {
         defaultDate: new Date(),
         minDate: new Date(),
@@ -18,7 +34,8 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
         multiEventDates: false, // Set the calendar to render multiple events in the same day or only one event, default is false
         maxEventsPerDay: 3, // Set how many events should the calendar display before showing the 'More Events' message, default is 3;
         eventClick: function (data) {
-            console.log(data)
+            data["nodeId"] = nodeId;
+            data["BookingData"] = $scope.BookingData;
             dialogService.open({
                 template: '/App_Plugins/NodeBookingCalender/templates/event-list-view.html',
                 show: true,
@@ -29,24 +46,22 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
             });
         },
         dateClick: function (data) {
-        dialogService.open({
-            template: '/App_Plugins/NodeBookingCalender/templates/new-event-view.html',
-            show: true,
-            dialogData: data,
-            callback: done
-        });
-    }
+        }
     };
     
 
 
-    $scope.events = [
-        { title: '4 bookings', date: new Date([2016, 6, 15]) },
-        { title: '12 bookings', date: new Date([2016, 6, 16]) }
-    ];
+
 });
 
-itembasedbookingApp.filter('FixSerialisedDate', function () {
+
+itembasedbookingApp.filter('ConvertResponseToCalData', function ($filter) {
+    return function (item) {
+        return { title: item.Count+' bookings', date: $filter('FixSerialisedDate')(item.StartDate) };
+    };
+})
+
+itembasedbookingApp.filter('FixSerialisedDate', function ($filter) {
     return function (item) {
         return new Date(parseInt(item.replace('/Date(', '').replace(')/', ''), 10));
     };

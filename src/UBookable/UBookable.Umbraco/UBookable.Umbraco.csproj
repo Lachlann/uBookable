@@ -306,12 +306,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\ItemBasedBookings\lib\ItemBasedBookingsstyle.css" />
-    <Content Include="App_Plugins\ItemBasedBookings\ItemBasedBookings.controller.js" />
-    <Content Include="App_Plugins\ItemBasedBookings\bookableitemlist.html" />
+    <Content Include="App_Plugins\NodeBookingCalender\lib\calendar.css" />
+    <Content Include="App_Plugins\NodeBookingCalender\lib\NodeBookingCalender.css" />
+    <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.controller.js" />
+    <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.html" />
+    <Content Include="App_Plugins\NodeBookingCalender\templates\event-list-view.html" />
+    <Content Include="App_Plugins\NodeBookingCalender\templates\new-event-view.html" />
     <Content Include="App_Plugins\Timepicker\lib\timepickerstyle.css" />
     <Content Include="App_Plugins\Timepicker\Timepicker.controller.js" />
     <Content Include="App_Plugins\Timepicker\timepicker.html" />
+    <Content Include="bower_components\angular-simple-calendar\dist\angular-simple-calendar.css" />
+    <Content Include="bower_components\angular-simple-calendar\dist\angular-simple-calendar.js" />
     <Content Include="bower_components\clndr\clndr.min.js" />
     <Content Include="bower_components\clndr\demo\css\clndr.css" />
     <Content Include="bower_components\clndr\demo\demo.js" />
@@ -824,7 +829,13 @@
     <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.post" />
     <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.pre" />
     <Content Include="App_Plugins\Timepicker\package.manifest" />
-    <Content Include="App_Plugins\ItemBasedBookings\package.manifest" />
+    <Content Include="App_Plugins\NodeBookingCalender\package.manifest" />
+    <Content Include="bower_components\angular-simple-calendar\.bower.json" />
+    <Content Include="bower_components\angular-simple-calendar\bower.json" />
+    <Content Include="bower_components\angular-simple-calendar\README.md" />
+    <Content Include="bower_components\angular-simple-calendar\src\angular-simple-calendar.coffee" />
+    <Content Include="bower_components\angular-simple-calendar\src\angular-simple-calendar.scss" />
+    <Content Include="App_Plugins\NodeBookingCalender\EventListViewEditorDialog.controller.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
