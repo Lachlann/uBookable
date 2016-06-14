@@ -47,6 +47,12 @@ namespace UBookable.Repository
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
             return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE NodeID = @0  AND StartDate = @1 AND EndDate = @2", BookableID, start, end);
         }
+        public static IEnumerable<dynamic> GetByBookingsByNodeId(int BookableID)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Query<dynamic>("SELECT UBBookings.StartDate, UBBookings.EndDate, UBBookers.BookerID, UBBookers.Name  FROM UBBookings INNER JOIN UBBookers ON UBBookings.BookerID = UBBookers.BookerID  WHERE NodeID = @0", BookableID);
+        }
+
 
         public static Booking Save(Booking item)
         {

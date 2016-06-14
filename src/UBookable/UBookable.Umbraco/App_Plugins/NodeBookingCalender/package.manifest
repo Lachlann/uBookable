@@ -1,0 +1,27 @@
+﻿{
+    //you can define multiple editors
+    propertyEditors: [
+        {
+            /*this must be a unique alias*/
+            alias: "NodeBookingCalender",
+            /*the name*/
+            name: "Node Booking Calender",
+            /*the icon*/
+            icon: "icon-umb-contour",
+            /*the HTML file we will load for the editor*/
+            editor: {
+                view: "~/App_Plugins/NodeBookingCalender/NodeBookingCalender.html"
+            }
+        }
+    ]
+    ,
+    //array of files we want to inject into the application on app_start
+    javascript: [
+		'~/bower_components/angular-simple-calendar/dist/angular-simple-calendar.js',
+		'~/App_Plugins/NodeBookingCalender/EventListViewEditorDialog.controller.js',
+        '~/App_Plugins/NodeBookingCalender/NodeBookingCalender.controller.js'
+    ],
+	css: [
+	 '~/App_Plugins/NodeBookingCalender/lib/calendar.css'
+	]
+}

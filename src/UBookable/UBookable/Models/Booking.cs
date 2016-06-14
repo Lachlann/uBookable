@@ -32,5 +32,6 @@ namespace UBookable.Models
 
         [Column("Cancelled")]
         public bool Cancelled { get; set; }
+
     }
 }

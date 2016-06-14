@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UBookable.Models.Calender;
 using UBookable.Helpers;
 using Umbraco.Web;
+using System.Linq;
 namespace UBookable.API
 {
     public class BookingController : UmbracoApiController
@@ -29,6 +30,22 @@ namespace UBookable.API
             HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(createdBooking));
             return new HttpResponseMessage();
         }
+
+        [HttpGet]
+        public HttpResponseMessage GetAllBookingsByNodeId (int nodeId)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+            IEnumerable<BookingResponse> allBookings = Bookings.GetByBookingsByNodeId(nodeId).Select(x => new BookingResponse
+            {
+                EndDate = ((IDictionary<string, dynamic>)x)["EndDate"],
+                StartDate = ((IDictionary<string, dynamic>)x)["StartDate"],
+                Name = ((IDictionary<string, dynamic>)x)["Name"]
+            });
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(allBookings));
+            return new HttpResponseMessage();
+        }
+
 
         [HttpPost]
         public HttpResponseMessage AddBookingAndBooker(BookingRequest bookingRequest)

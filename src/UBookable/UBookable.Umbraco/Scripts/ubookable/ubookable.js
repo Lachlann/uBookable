@@ -16,7 +16,6 @@
   }
 
   function _saveBooking (nodeid, bookerid, startDate, endDate) {
-    console.log('save booking')
     var testBooking = Booking(nodeid, bookerid, startDate, endDate)
     return $.ajax({
       url: '/umbraco/api/booking/addbooking',
@@ -60,7 +59,6 @@
 })(jQuery)
 
 var Booking = function (nodeId, bookerID, startDate, endDate, approved, cancelled) {
-  // Model for a user submitted answer
   return {
     'nodeId': nodeId,
     'bookerID': bookerID,
@@ -71,8 +69,6 @@ var Booking = function (nodeId, bookerID, startDate, endDate, approved, cancelle
   }
 }
 var Booker = function (Name, memberid) {
-  // Model for a user submitted answer
-
   return {
     'name': Name,
     'memberId': memberid

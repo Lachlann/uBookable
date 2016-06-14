@@ -1,0 +1,9 @@
+﻿.timepicker .item-col {
+    display:inline-block;
+}
+.timepicker .item-block {
+    display:block;
+}
+.timepicker .item-input {
+    display:block; width:100px;
+}

@@ -306,6 +306,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\ItemBasedBookings\lib\ItemBasedBookingsstyle.css" />
+    <Content Include="App_Plugins\ItemBasedBookings\ItemBasedBookings.controller.js" />
+    <Content Include="App_Plugins\ItemBasedBookings\bookableitemlist.html" />
+    <Content Include="App_Plugins\Timepicker\lib\timepickerstyle.css" />
     <Content Include="App_Plugins\Timepicker\Timepicker.controller.js" />
     <Content Include="App_Plugins\Timepicker\timepicker.html" />
     <Content Include="bower_components\clndr\clndr.min.js" />
@@ -820,6 +824,7 @@
     <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.post" />
     <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.pre" />
     <Content Include="App_Plugins\Timepicker\package.manifest" />
+    <Content Include="App_Plugins\ItemBasedBookings\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

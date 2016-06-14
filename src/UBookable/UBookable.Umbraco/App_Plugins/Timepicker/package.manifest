@@ -18,5 +18,8 @@
     //array of files we want to inject into the application on app_start
     javascript: [
         '~/App_Plugins/Timepicker/Timepicker.controller.js'
-    ]
+    ],
+	css: [
+	 '~/App_Plugins/Timepicker/lib/timepickerstyle.css'
+	]
 }
