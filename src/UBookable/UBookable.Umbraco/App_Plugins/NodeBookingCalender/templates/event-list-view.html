@@ -1,10 +1,13 @@
-﻿<div class="event-list-dialogue" ng-controller="EventListViewEditorDialog.Controller">
-    <div class="Inner">
-        <h1> {{model.DateTitle}}</h1>
-        <h2>Events booked:</h2>
-        <div class="event-row" ng-repeat="day in model.Bookings">
-            <div ng-repeat="booking in day.Bookings">
-                {{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }} <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved">Approve</button>  <button ng-hide="booking.Cancelled">Cancel</button>
+﻿<div class="event-list-dialogue dialogPad" ng-controller="EventListViewEditorDialog.Controller">
+    <div class="Inner ">
+        <h2> {{model.DateTitle}}</h2>
+        <h3>Events booked:</h3>
+        <div  ng-repeat="day in model.Bookings">
+            <div ng-repeat="booking in day.Bookings" ng-class="{cancelled : booking.Cancelled, approved : booking.Approved}" class="event-row">
+               <span class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</span>
+                  <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved" class="btn btn-primary">Approve</button>
+                  <button ng-click="Cancel(booking.BookingID)" ng-hide="booking.Cancelled" class="btn btn-danger">Cancel</button>
+                 <span ng-show="booking.Cancelled" class="canceled-text">Cancelled</span>
             </div>
             
         </div>

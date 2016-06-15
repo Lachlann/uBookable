@@ -23,7 +23,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
       '<div>' +
       '<div ng-repeat="week in weeks track by $index" class="week">' +
       '<div class="day"' +
-      'ng-class="{default: isDefaultDate(date), event: date.event, disabled: date.disabled || !date}"' +
+      'ng-class="{default: isDefaultDate(date), event: date.event, disabled: date.disabled || !date, past : date.thisDate < today}"' +
       'ng-repeat="date in week  track by $index"' +
       'ng-click="onClick(date)">' +
       '<div class="day-number">{{ date.day || "&nbsp;" }}</div>' +
@@ -39,7 +39,7 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
 
       $scope.options = $scope.options || {};
       $scope.options.dayNamesLength = $scope.options.dayNamesLength || 1;
-
+      $scope.today = new Date();
       $scope.onClick = function (date) {
         if (!date || date.disabled) { return; }
         if (date.event) {
@@ -131,7 +131,8 @@ angular.module('500tech.simple-calendar', []).directive('simpleCalendar', functi
           week[dayNumber] = {
             year: $scope.selectedYear,
             month: MONTHS.indexOf($scope.selectedMonth),
-            day: day
+            day: day,
+            thisDate: new Date($scope.selectedYear, MONTHS.indexOf($scope.selectedMonth), day)
           };
 
           if (allowedDate(week[dayNumber])) {

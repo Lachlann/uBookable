@@ -63,7 +63,14 @@ namespace UBookable.Repository
              db.Update(updateBooking);
             return updateBooking;
         }
-
+        public static Booking Cancel(int BookingId)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            Booking updateBooking = GetByBookingID(BookingId);
+            updateBooking.Cancelled = true;
+            db.Update(updateBooking);
+            return updateBooking;
+        }
         public static Booking Save(Booking item)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;

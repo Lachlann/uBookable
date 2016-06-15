@@ -31,7 +31,22 @@
                 }
             );
     	}
-
+    	$scope.Cancel = function (bookingId) {
+    	    $http({
+    	        url: "/umbraco/api/booking/cancelbooking",
+    	        method: "PUT",
+    	        params: { bookingid: bookingId }
+    	    }).then(
+                function successCallback(response) {
+                    var newlycanceled = $filter('filter')($scope.model.Bookings[0].Bookings, { BookingID: response.data.BookingID });
+                    newlycanceled[0].Cancelled = true;
+                    notificationsService.success("Event approved", "This event has been canceled");
+                },
+                function errorCallback(response) {
+                    notificationsService.error("Event cancelation failed", "Something went wrong, your event has not been approved.");
+                }
+            );
+    	}
     });
 
 

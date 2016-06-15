@@ -106,7 +106,15 @@ namespace UBookable.API
             HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(updatedBookingId));
             return new HttpResponseMessage();
         }
-
+        [AcceptVerbs("PUT")]
+        public HttpResponseMessage CancelBooking(int bookingid)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+            Booking updatedBookingId = Bookings.Cancel(bookingid);
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(updatedBookingId));
+            return new HttpResponseMessage();
+        }
         private static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch

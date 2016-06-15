@@ -1,0 +1,25 @@
+﻿.dialogPad {
+    padding:3%;
+}
+.event-row {
+
+    padding: 20px 5px;
+    border-bottom:1px solid #d1d1d1;
+    font-size:16px;
+}
+.canceled-text {
+ font-style:italic;
+ color:#d8d7d7;
+}
+
+.event-row.cancelled,  .event-row.cancelled.approved{
+    background-color: #f4f4f4;
+    color: #808080;
+}
+.event-row.approved {
+    background-color: #BCED91;
+    color: #354905;
+}
+.event-row .details {
+    margin-right:20px;
+}

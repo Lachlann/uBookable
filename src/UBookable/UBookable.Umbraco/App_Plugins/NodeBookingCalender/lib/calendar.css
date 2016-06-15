@@ -74,3 +74,6 @@ simple-calendar .day.disabled {
   color: silver;
   background-color: white;
 }
+simple-calendar .day.past {
+    opacity:0.6;
+}

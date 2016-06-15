@@ -27,7 +27,7 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
 
     $scope.calendarOptions = {
         defaultDate: new Date(),
-        minDate: new Date(),
+        minDate: new Date([2000, 12, 31]),
         maxDate: new Date([2020, 12, 31]),
         dayNamesLength: 1, // How to display weekdays (1 for "M", 2 for "Mo", 3 for "Mon"; 9 will show full day names; default is 1)
         multiEventDates: false, // Set the calendar to render multiple events in the same day or only one event, default is false
