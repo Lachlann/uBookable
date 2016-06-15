@@ -17,12 +17,11 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
         for (var i = 0, length = eventData.data.length; i < length ; i++)
         {
             var thisGroupCount = eventData.data[i].Count;
-            for (var j = 0, lengthj = eventData.data[i].Events.length; j < lengthj ; j++) {
-                eventData.data[i].Events[j]["Count"] = thisGroupCount;
-                $scope.events.push($filter('ConvertResponseToCalData')(eventData.data[i].Events[j]));
+            for (var j = 0, lengthj = eventData.data[i].Bookings.length; j < lengthj ; j++) {
+                eventData.data[i].Bookings[j]["Count"] = thisGroupCount;
+                $scope.events.push($filter('ConvertResponseToCalData')(eventData.data[i].Bookings[j]));
             }
         }
-        console.log($scope.events);
     }
 
 
@@ -41,7 +40,7 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
                 show: true,
                 dialogData: data,
                 callback: function (value) {
-                    console.log(value);
+                    
                 }
             });
         },

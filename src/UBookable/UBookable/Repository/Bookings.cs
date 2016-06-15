@@ -42,6 +42,8 @@ namespace UBookable.Repository
                 return null;
         }
 
+
+
         public static List<Booking> GetByBookingsByNodeIDAndDate(int BookableID, DateTime start, DateTime end)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
@@ -50,9 +52,17 @@ namespace UBookable.Repository
         public static IEnumerable<dynamic> GetByBookingsByNodeId(int BookableID)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
-            return db.Query<dynamic>("SELECT UBBookings.StartDate, UBBookings.EndDate, UBBookers.BookerID, UBBookers.Name, UBooking.Approved, UBooking.Cancelled  FROM UBBookings INNER JOIN UBBookers ON UBBookings.BookerID = UBBookers.BookerID  WHERE NodeID = @0", BookableID);
+            return db.Query<dynamic>("SELECT UBBookings.BookingID, UBBookings.StartDate, UBBookings.EndDate, UBBookings.Approved, UBBookings.Cancelled, UBBookers.BookerID, UBBookers.Name  FROM UBBookings INNER JOIN UBBookers ON UBBookings.BookerID = UBBookers.BookerID  WHERE NodeID = @0", BookableID);
         }
 
+        public static Booking Approve(int BookingId)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            Booking updateBooking = GetByBookingID(BookingId);
+            updateBooking.Approved = true;
+             db.Update(updateBooking);
+            return updateBooking;
+        }
 
         public static Booking Save(Booking item)
         {

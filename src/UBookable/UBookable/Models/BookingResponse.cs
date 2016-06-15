@@ -12,5 +12,6 @@ namespace UBookable.Models
         public bool Approved { get; set; }
         public bool Cancelled { get; set; }
         public int Count { get; set; }
+        public int BookingID { get; set;}
     }
 }

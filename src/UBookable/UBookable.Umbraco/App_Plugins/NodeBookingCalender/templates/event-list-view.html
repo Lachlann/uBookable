@@ -2,9 +2,9 @@
     <div class="Inner">
         <h1> {{model.DateTitle}}</h1>
         <h2>Events booked:</h2>
-        <div class="event-row" ng-repeat="day in model.Events | filter:getByDayKey(DayKey)">
-            <div ng-repeat="event in day.Events">
-                {{event.Name}} - {{event.StartDate | fixDate }} to {{event.EndDate | fixDate }} <button ng-hide="event.Approved">Approve</button> or <button ng-hide="event.Cancelled">Cancel</button>
+        <div class="event-row" ng-repeat="day in model.Bookings">
+            <div ng-repeat="booking in day.Bookings">
+                {{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }} <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved">Approve</button>  <button ng-hide="booking.Cancelled">Cancel</button>
             </div>
             
         </div>

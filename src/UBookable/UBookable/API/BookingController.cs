@@ -44,11 +44,12 @@ namespace UBookable.API
                     StartDate = ((IDictionary<string, dynamic>)x)["StartDate"],
                     Name = ((IDictionary<string, dynamic>)x)["Name"],
                     Approved = ((IDictionary<string, dynamic>)x)["Approved"],
-                    Cancelled = ((IDictionary<string, dynamic>)x)["Cancelled"]
+                    Cancelled = ((IDictionary<string, dynamic>)x)["Cancelled"],
+                    BookingID = ((IDictionary<string, dynamic>)x)["BookingID"]
                 });
 
             var groupedresponse = allBookings.GroupBy(x => x.StartDate.ToString("yyyyMMdd"),
-                (key, values) => new { Date = key, Count = values.Count(), Events = values }
+                (key, values) => new { Date = key, Count = values.Count(), Bookings = values }
                 );
 
             HttpContext.Current.Response.StatusCode = 200;
@@ -93,6 +94,16 @@ namespace UBookable.API
             List<TimeSlot> timeSlots = _ubHelper.GetDailyTimeSlots(Id, UnixTimeStampToDateTime(start) , UnixTimeStampToDateTime(end), period, duration);
             HttpContext.Current.Response.StatusCode = 200;
             HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(timeSlots));
+            return new HttpResponseMessage();
+        }
+
+        [AcceptVerbs("PUT")]
+        public HttpResponseMessage ApproveBooking(int bookingid)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+            Booking updatedBookingId = Bookings.Approve(bookingid);
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(updatedBookingId));
             return new HttpResponseMessage();
         }
 
