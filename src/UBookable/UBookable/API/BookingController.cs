@@ -11,14 +11,16 @@ using UBookable.Models.Calender;
 using UBookable.Helpers;
 using Umbraco.Web;
 using System.Linq;
+using UBookable.ViewModels;
+using Our.Umbraco.Ditto;
+
 namespace UBookable.API
 {
     public class BookingController : UmbracoApiController
     {
 
         private UBookableHelper _ubHelper = new UBookableHelper(UmbracoContext.Current);
-
-        [AcceptVerbs("POST")]
+        private UmbracoHelper _uHelper = new UmbracoHelper(UmbracoContext.Current);
         [HttpPost]
         public HttpResponseMessage AddBooking (Booking booking)
         {
@@ -28,6 +30,23 @@ namespace UBookable.API
 
             HttpContext.Current.Response.StatusCode = 200;
             HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(createdBooking));
+            return new HttpResponseMessage();
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetTimeSlotsByNodeId(int nodeId, long dayRequest)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+            BookableSettings settings = _uHelper.TypedContent(nodeId).As<BookableSettings>();
+            DateTime rDate = new DateTime(1970, 01, 01).AddMilliseconds(dayRequest);
+            Time dateStartTime = new JavaScriptSerializer().Deserialize<Time>(settings.DailyStartTime);
+            Time dateEndTime = new JavaScriptSerializer().Deserialize<Time>(settings.DailyEndTime);
+            DateTime startTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, int.Parse(dateStartTime.Hours), int.Parse(dateStartTime.Mins), 0).ToLocalTime();
+            DateTime endTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, int.Parse(dateEndTime.Hours), int.Parse(dateEndTime.Mins), 0).ToLocalTime();
+
+            List<TimeSlot> timeslots = _ubHelper.GetDailyTimeSlots(nodeId, startTime, endTime, settings.MinimumBookingTimePeriod, settings.MinimumBookingLength);
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(timeslots));
             return new HttpResponseMessage();
         }
 

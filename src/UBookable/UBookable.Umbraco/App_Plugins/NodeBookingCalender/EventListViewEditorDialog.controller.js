@@ -1,10 +1,27 @@
 ﻿var eventslistapp =  angular.module('umbraco')
     .controller('EventListViewEditorDialog.Controller',
     function ($scope, $filter, $http, notificationsService) {
-
+        console.log($scope.dialogData);
         var daySelected = new Date($scope.dialogData.year, $scope.dialogData.month, $scope.dialogData.day);
         $scope.DayKey = moment(daySelected).format('YYYYMMDD');
         var todaysBookings = $filter('filter')($scope.dialogData.BookingData.data, { Date: $scope.DayKey });
+        $scope.showBookings = true;
+        $scope.showAddNew = false;
+
+        $http({
+            url: "/umbraco/api/booking/gettimeslotsbynodeid",
+            method: "GET",
+            params: { nodeId: $scope.dialogData.nodeId, dayRequest: daySelected.getTime() }
+        }).then(
+            function successCallback(response) {
+                console.log(response);
+                $scope.DateOptions = response.data
+            },
+            function errorCallback(response) {
+                notificationsService.error("Failed to retireive time slots for this date", "Please contact your system admin");
+            }
+        );
+
     	$scope.model = {
     		DateTitle: moment(daySelected).format('MMMM Do YYYY'),
     		Bookings: todaysBookings
@@ -14,7 +31,10 @@
     	        return day.Date === date;
     	    }
     	}
-
+    	$scope.submitNewBooking = function(){
+    	    console.log($scope.newBookingName);
+    	    console.log($scope.timeslots);
+    	}
     	$scope.Approve = function (bookingId) {
     	    $http({
     	        url: "/umbraco/api/booking/approvebooking",
@@ -48,8 +68,6 @@
             );
     	}
     });
-
-
 
 eventslistapp.filter('fixDate', function () {
     return function (input) {

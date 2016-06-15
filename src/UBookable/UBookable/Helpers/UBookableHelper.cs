@@ -24,7 +24,8 @@ namespace UBookable.Helpers
             while (time < end)
             {
                 DateTime slotEnd = _addSplotDuration(time, duration , period);
-                int availableSpaces = ubSettings.AvailabilityPerSlot - Bookings.GetByBookingsByNodeIDAndDate(nodeId, time, slotEnd).Count;
+                int currentBookingsInSpace = Bookings.GetByBookingsByNodeIDAndDate(nodeId, time, slotEnd).Count;
+                int availableSpaces = ubSettings.AvailabilityPerSlot - currentBookingsInSpace;
                 timeSlots.Add(_getTimeSlot(time, slotEnd, ubSettings.AvailabilityPerSlot, availableSpaces));
                 time = slotEnd;
             }

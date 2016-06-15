@@ -307,7 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\NodeBookingCalender\lib\calendar.css" />
-    <Content Include="App_Plugins\NodeBookingCalender\lib\NodeBookingCalender.css" />
+    <Content Include="App_Plugins\NodeBookingCalender\lib\general.css" />
     <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.controller.js" />
     <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.html" />
     <Content Include="App_Plugins\NodeBookingCalender\templates\event-list-view.html" />

@@ -17,6 +17,7 @@
     ,
     //array of files we want to inject into the application on app_start
     javascript: [
+		'~/Scripts/ubookable/ubookable.js',
 		'~/bower_components/angular-simple-calendar/dist/angular-simple-calendar.js',
 		'~/App_Plugins/NodeBookingCalender/EventListViewEditorDialog.controller.js',
         '~/App_Plugins/NodeBookingCalender/NodeBookingCalender.controller.js'

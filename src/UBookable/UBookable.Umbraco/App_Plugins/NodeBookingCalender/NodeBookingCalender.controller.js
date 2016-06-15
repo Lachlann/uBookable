@@ -12,6 +12,9 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
         initCal(response);
     });
 
+
+
+
     function initCal(eventData) {
         $scope.events = [];
         for (var i = 0, length = eventData.data.length; i < length ; i++)
@@ -24,6 +27,7 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
         }
     }
 
+    
 
     $scope.calendarOptions = {
         defaultDate: new Date(),
@@ -40,11 +44,21 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
                 show: true,
                 dialogData: data,
                 callback: function (value) {
-                    
+
                 }
             });
         },
         dateClick: function (data) {
+            data["nodeId"] = nodeId;
+            data["BookingData"] = $scope.BookingData;
+            dialogService.open({
+                template: '/App_Plugins/NodeBookingCalender/templates/event-list-view.html',
+                show: true,
+                dialogData: data,
+                callback: function (value) {
+
+                }
+            });
         }
     };
     

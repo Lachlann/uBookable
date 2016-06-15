@@ -77,3 +77,6 @@ simple-calendar .day.disabled {
 simple-calendar .day.past {
     opacity:0.6;
 }
+.day-number {
+    font-weight:bold;
+}
