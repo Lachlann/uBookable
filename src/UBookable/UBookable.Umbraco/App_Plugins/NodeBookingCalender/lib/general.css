@@ -1,21 +1,25 @@
 ﻿.dialogPad {
     padding: 3%;
 }
+
 .large-icon {
     font-size:40px;
 }
-.event-list-dialogue h2 {
-    background-color: #1d1d1d;
-    color: #FFF;
-    padding:10px;
-    margin-bottom:0px;
+.event-list-dialogue {
     margin-top:0px;
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+.event-list-dialogue h2 {
+
+    padding:20px 0px;
+    margin: 0px;
     line-height:18px;
     font-size:18px;
 }
 
 .event-row {
-    padding: 20px 5px;
+    padding: 20px;
     border-bottom: 1px solid #d1d1d1;
     font-size: 16px;
 }
@@ -37,4 +41,17 @@
 
 .event-row .details {
     margin-right: 20px;
+}
+.form-row label{
+    display:block;
+}
+.form-row.form-inline label {
+ display:inline-block;
+}
+
+.dialog-footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }

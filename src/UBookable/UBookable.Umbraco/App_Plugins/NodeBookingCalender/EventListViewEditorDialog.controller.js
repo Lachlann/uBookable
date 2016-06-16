@@ -4,6 +4,10 @@
         $scope.showBookings = true;
         $scope.showAddNew = false;
         $scope.autoApproved = true;
+        $scope.hideCancelled = true;
+        $scope.hideApproved = false;
+
+
         var daySelected = new Date($scope.dialogData.year, $scope.dialogData.month, $scope.dialogData.day);
         $scope.DayKey = moment(daySelected).format('YYYYMMDD');
         var todayData = $filter('filter')($scope.dialogData.BookingData.data, { Date: $scope.DayKey })

@@ -4,11 +4,17 @@
         <p class="umb-overlay__subtitle">Edit existing bookings or create new ones.</p>
     </div>
 
-    <div class="event-list-dialogue ">
+    <div class="event-list-dialogue umb-overlay-container">
         <h2 ng-click="showBookings = !showBookings">Current bookings  <span ng-class="{'icon-badge-add' :!showBookings,  'icon-badge-remove' : showBookings}" class="pull-right large-icon"></span></h2>
-        <div class="Inner">
+        
+
+         <div class="Inner">
             <div ng-show="showBookings">
-                <div ng-repeat="booking in model.Bookings" ng-class="{cancelled : booking.Cancelled, approved : booking.Approved}" class="event-row
+                <button class="btn" ng-click="hideCancelled = !hideCancelled">{{(hideCancelled) ? "Show cancelled bookings" : "Hide cancelled bookings"}}</button>
+                <button class="btn" ng-click="hideApproved = !hideApproved">{{(hideApproved) ? "Show approved bookings" : "Hide approved bookings"}}</button>
+
+
+                <div ng-repeat="booking in model.Bookings" ng-hide="(hideCancelled && booking.Cancelled) || (hideApproved && booking.Approved && !booking.Cancelled)" ng-class="{cancelled : booking.Cancelled, approved : booking.Approved}" class="event-row
                  dialogPad">
                     <span class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</span>
                     <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved || booking.Cancelled" class="btn btn-primary">Approve</button>
@@ -31,7 +37,7 @@
                         <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
                     </select>
                 </div>
-                <div class="form-row dialogPad">
+                <div class="form-row dialogPad form-inline">
                     <label for="timeSlot">Approve:</label>
                     <input type="checkbox" ng-model="autoApproved" />
                 </div>
@@ -41,5 +47,10 @@
             </form>
         </div>
     </div>
+
+    <div class="umb-overlay-drawer dialog-footer clearfix">
+        <span class="umb-button__content pull-right" ng-click="close()">Close</span>
+    </div>
+
 
 </div>
