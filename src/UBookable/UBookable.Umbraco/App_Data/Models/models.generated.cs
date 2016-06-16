@@ -46,6 +46,15 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// test
+		///</summary>
+		[ImplementPropertyType("test")]
+		public object Test
+		{
+			get { return this.GetPropertyValue("test"); }
+		}
 	}
 
 	/// <summary>Bookable item</summary>

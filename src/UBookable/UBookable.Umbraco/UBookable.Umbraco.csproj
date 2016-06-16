@@ -311,7 +311,6 @@
     <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.controller.js" />
     <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.html" />
     <Content Include="App_Plugins\NodeBookingCalender\templates\event-list-view.html" />
-    <Content Include="App_Plugins\NodeBookingCalender\templates\new-event-view.html" />
     <Content Include="App_Plugins\Timepicker\lib\timepickerstyle.css" />
     <Content Include="App_Plugins\Timepicker\Timepicker.controller.js" />
     <Content Include="App_Plugins\Timepicker\timepicker.html" />

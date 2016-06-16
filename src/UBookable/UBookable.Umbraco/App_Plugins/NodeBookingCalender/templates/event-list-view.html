@@ -1,35 +1,45 @@
-﻿<div class="event-list-dialogue " ng-controller="EventListViewEditorDialog.Controller">
-    <h2 ng-click="showBookings = !showBookings">Bookings for {{model.DateTitle}}  <span ng-class="{'icon-badge-add' :!showBookings,  'icon-badge-remove' : showBookings}" class="pull-right large-icon" ></span></h2>
-    <div class="Inner">
-        <div ng-repeat="day in model.Bookings"ng-show="showBookings">
-            <div ng-repeat="booking in day.Bookings" ng-class="{cancelled : booking.Cancelled, approved : booking.Approved}" class="event-row
+﻿<div class="umb-overlay umb-overlay-right"  ng-controller="EventListViewEditorDialog.Controller">
+    <div class="umb-overlay-header">
+        <h4 class="umb-overlay__title">{{model.DateTitle}} </h4>
+        <p class="umb-overlay__subtitle">Edit existing bookings or create new ones.</p>
+    </div>
+
+    <div class="event-list-dialogue ">
+        <h2 ng-click="showBookings = !showBookings">Current bookings  <span ng-class="{'icon-badge-add' :!showBookings,  'icon-badge-remove' : showBookings}" class="pull-right large-icon"></span></h2>
+        <div class="Inner">
+            <div ng-show="showBookings">
+                <div ng-repeat="booking in model.Bookings" ng-class="{cancelled : booking.Cancelled, approved : booking.Approved}" class="event-row
                  dialogPad">
-                <span class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</span>
-                <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved" class="btn btn-primary">Approve</button>
-                <button ng-click="Cancel(booking.BookingID)" ng-hide="booking.Cancelled" class="btn btn-danger">Cancel</button>
-                <span ng-show="booking.Cancelled" class="canceled-text">Cancelled</span>
+                    <span class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</span>
+                    <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved || booking.Cancelled" class="btn btn-primary">Approve</button>
+                    <button ng-click="Cancel(booking.BookingID)" ng-hide="booking.Cancelled" class="btn btn-danger">Cancel</button>
+                    <span ng-show="booking.Cancelled" class="canceled-text">Cancelled</span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="new-booking-form ">
-        <h2 ng-click="showAddNew = !showAddNew">Add new booking <span  ng-class="{'icon-badge-add':!showAddNew,  'icon-badge-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
-        <form novalidate ng-show="showAddNew">
-            <div class="form-row dialogPad">
-                <label for="BookingName">Booker Name:</label>
-                <input name="BookingName" ng-model="newBookingName" type="text" required />
-            </div>
-            <div class="form-row dialogPad">
-                <label for="timeSlot">Time slot:</label>
-                <select ng-model="timeslots">
-                    <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime}}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
-                </select>
-            </div>
-            <div class="form-row dialogPad">
-                <button class="btn btn-primary" ng-click="submitNewBooking()">Save</button>
-            </div>
-        </form>
+        <div class="new-booking-form ">
+            <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-badge-add':!showAddNew,  'icon-badge-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
+            <form novalidate ng-show="showAddNew || model.Bookings.length ==0 ">
+                <div class="form-row dialogPad">
+                    <label for="BookingName">Booker Name:</label>
+                    <input name="BookingName" ng-model="newBookingName" type="text" required />
+                </div>
+                <div class="form-row dialogPad">
+                    <label for="timeSlot">Time slot:</label>
+                    <select ng-model="timeslots">
+                        <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
+                    </select>
+                </div>
+                <div class="form-row dialogPad">
+                    <label for="timeSlot">Approve:</label>
+                    <input type="checkbox" ng-model="autoApproved" />
+                </div>
+                <div class="form-row dialogPad">
+                    <button class="btn btn-primary" ng-click="submitNewBooking()">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
-
 
 </div>

@@ -40,6 +40,10 @@ if (!DEBUG) {
       console.log('make booking: ' + id + ' ' + start + ' ' + end + ' ' + name)
 
       if (name !== '' && name !== undefined) {
+
+          console.log("save boking and booker");
+          console.log(start);
+          console.log(end);
         uBookable.SaveBookingAndBooker(id, start, end, name).done(function (booking) {
           var bookable = me.closest('.bookable')
           var slot = me.closest('.slot')
