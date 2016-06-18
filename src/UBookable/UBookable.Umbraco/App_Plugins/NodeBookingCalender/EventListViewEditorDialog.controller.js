@@ -22,6 +22,7 @@
             params: { nodeId: $scope.dialogData.nodeId, dayRequest: daySelected.getTime() }
         }).then(
             function successCallback(response) {
+                console.log(response);
                 $scope.DateOptions = response.data
             },
             function errorCallback(response) {
@@ -41,6 +42,7 @@
     	    var end = timeslotsArray[1].split(':');
     	    var startTime = new Date(daySelected.setHours(start[0], start[1]));
     	    var endTime = new Date(daySelected.setHours(end[0], end[1]));
+
     	    uBookable.SaveBookingAndBooker($scope.dialogData.nodeId, startTime, endTime, $scope.newBookingName, $scope.autoApproved).done(function (booking) {
     	        booking.Name = bookingName; // bit of a hack but saves hving to do it on the server.
     	        $scope.model.Bookings.push(booking);

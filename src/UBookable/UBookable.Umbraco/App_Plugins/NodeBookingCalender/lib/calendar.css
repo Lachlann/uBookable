@@ -64,8 +64,8 @@ simple-calendar .day.default {
 }
 
 simple-calendar .day.event {
-  background-color: #BCED91;
-  border: 1px solid #BCED91;
+  background-color: #d2f1b8;
+  border: 1px solid #d2f1b8;
    border-left: none;
 }
 

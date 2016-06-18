@@ -35,16 +35,21 @@
 }
 
 .event-row.approved {
-    background-color: #BCED91;
+    background-color: #d2f1b8;
     color: #354905;
 }
 
 .event-row .details {
     margin-right: 20px;
 }
+.form-row {
+margin-bottom:15px;
+}
 .form-row label{
     display:block;
 }
+
+
 .form-row.form-inline label {
  display:inline-block;
 }

@@ -46,9 +46,12 @@ namespace UBookable.Repository
 
         public static List<Booking> GetByBookingsByNodeIDAndDate(int BookableID, DateTime start, DateTime end)
         {
+            start = start.ToUniversalTime();
+            end = end.ToUniversalTime();
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
             return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE NodeID = @0  AND StartDate = @1 AND EndDate = @2", BookableID, start, end);
         }
+
         public static IEnumerable<dynamic> GetByBookingsByNodeId(int BookableID)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
@@ -73,6 +76,8 @@ namespace UBookable.Repository
         }
         public static Booking Save(Booking item)
         {
+            item.StartDate = item.StartDate.ToUniversalTime();
+            item.EndDate = item.EndDate.ToUniversalTime();
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
             db.Save(item);
             return item;

@@ -27,22 +27,22 @@
         <div class="new-booking-form ">
             <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-badge-add':!showAddNew,  'icon-badge-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
             <form novalidate ng-show="showAddNew || model.Bookings.length ==0 ">
-                <div class="form-row dialogPad">
+                <div class="form-row ">
                     <label for="BookingName">Booker Name:</label>
                     <input name="BookingName" ng-model="newBookingName" type="text" required />
                 </div>
-                <div class="form-row dialogPad">
+                <div class="form-row ">
                     <label for="timeSlot">Time slot:</label>
                     <select ng-model="timeslots">
                         <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
                     </select>
                 </div>
-                <div class="form-row dialogPad form-inline">
+                <div class="form-row  form-inline">
                     <label for="timeSlot">Approve:</label>
                     <input type="checkbox" ng-model="autoApproved" />
                 </div>
-                <div class="form-row dialogPad">
-                    <button class="btn btn-primary" ng-click="submitNewBooking()">Save</button>
+                <div class="form-row ">
+                    <button class="btn btn-primary pull-right" ng-click="submitNewBooking()">Save</button>
                 </div>
             </form>
         </div>

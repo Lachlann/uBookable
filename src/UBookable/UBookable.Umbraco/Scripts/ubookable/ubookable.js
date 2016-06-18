@@ -1,9 +1,15 @@
 ﻿var uBookable = (function ($) {
+
     function _saveBookingAndBooker(nodeid, startDate, endDate, bookerName, autoApprove) {
+        console.log("save booking");
+
+
         var approve = (autoApprove === undefined) ? false : autoApprove;
         console.log('save booking and booker: ')
         var testBooking = Booking(nodeid, '', startDate, endDate, approve)
         var testBooker = Booker(bookerName)
+
+        
         var data = {}
         data['booker'] = testBooker
         data['booking'] = testBooking
@@ -75,3 +81,4 @@ var Booker = function (Name, memberid) {
         'memberId': memberid
     }
 }
+Date.prototype.toJSON = function () { return moment.utc(this).format(); }

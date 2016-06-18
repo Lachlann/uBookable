@@ -7,7 +7,7 @@ using  Umbraco.Core.Models.PublishedContent;
 using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
-[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.2")]
+[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
 // FILE: models.generated.cs
@@ -446,6 +446,131 @@ namespace Umbraco.Web.PublishedContentModels
 		public object UmbracoFile
 		{
 			get { return this.GetPropertyValue("umbracoFile"); }
+		}
+	}
+
+	/// <summary>ubookable</summary>
+	[PublishedContentModel("ubookable")]
+	public partial class Ubookable : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "ubookable";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Member;
+#pragma warning restore 0109
+
+		public Ubookable(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Ubookable, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// Address
+		///</summary>
+		[ImplementPropertyType("address")]
+		public string Address
+		{
+			get { return this.GetPropertyValue<string>("address"); }
+		}
+
+		///<summary>
+		/// Phone number
+		///</summary>
+		[ImplementPropertyType("phoneNumber")]
+		public string PhoneNumber
+		{
+			get { return this.GetPropertyValue<string>("phoneNumber"); }
+		}
+
+		///<summary>
+		/// Is Approved
+		///</summary>
+		[ImplementPropertyType("umbracoMemberApproved")]
+		public bool UmbracoMemberApproved
+		{
+			get { return this.GetPropertyValue<bool>("umbracoMemberApproved"); }
+		}
+
+		///<summary>
+		/// Comments
+		///</summary>
+		[ImplementPropertyType("umbracoMemberComments")]
+		public string UmbracoMemberComments
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberComments"); }
+		}
+
+		///<summary>
+		/// Failed Password Attempts
+		///</summary>
+		[ImplementPropertyType("umbracoMemberFailedPasswordAttempts")]
+		public string UmbracoMemberFailedPasswordAttempts
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberFailedPasswordAttempts"); }
+		}
+
+		///<summary>
+		/// Last Lockout Date
+		///</summary>
+		[ImplementPropertyType("umbracoMemberLastLockoutDate")]
+		public string UmbracoMemberLastLockoutDate
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberLastLockoutDate"); }
+		}
+
+		///<summary>
+		/// Last Login Date
+		///</summary>
+		[ImplementPropertyType("umbracoMemberLastLogin")]
+		public string UmbracoMemberLastLogin
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberLastLogin"); }
+		}
+
+		///<summary>
+		/// Last Password Change Date
+		///</summary>
+		[ImplementPropertyType("umbracoMemberLastPasswordChangeDate")]
+		public string UmbracoMemberLastPasswordChangeDate
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberLastPasswordChangeDate"); }
+		}
+
+		///<summary>
+		/// Is Locked Out
+		///</summary>
+		[ImplementPropertyType("umbracoMemberLockedOut")]
+		public bool UmbracoMemberLockedOut
+		{
+			get { return this.GetPropertyValue<bool>("umbracoMemberLockedOut"); }
+		}
+
+		///<summary>
+		/// Password Answer
+		///</summary>
+		[ImplementPropertyType("umbracoMemberPasswordRetrievalAnswer")]
+		public string UmbracoMemberPasswordRetrievalAnswer
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberPasswordRetrievalAnswer"); }
+		}
+
+		///<summary>
+		/// Password Question
+		///</summary>
+		[ImplementPropertyType("umbracoMemberPasswordRetrievalQuestion")]
+		public string UmbracoMemberPasswordRetrievalQuestion
+		{
+			get { return this.GetPropertyValue<string>("umbracoMemberPasswordRetrievalQuestion"); }
 		}
 	}
 
