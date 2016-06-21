@@ -67,8 +67,8 @@ var Booking = function (nodeId, bookerID, startDate, endDate, approved, cancelle
     return {
         'nodeId': nodeId,
         'bookerID': bookerID,
-        'startDate': startDate,
-        'endDate': endDate,
+        'startDateISO': startDate.toISOString(),
+        'endDateISO': endDate.toISOString(),
         'approved': approved,
         'cancelled': cancelled
     }

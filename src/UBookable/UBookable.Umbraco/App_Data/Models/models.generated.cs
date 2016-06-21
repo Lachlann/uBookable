@@ -113,7 +113,7 @@ namespace Umbraco.Web.PublishedContentModels
 		/// Daily end time
 		///</summary>
 		[ImplementPropertyType("dailyEndTime")]
-		public UBookable.ViewModels.Time DailyEndTime
+		public object DailyEndTime
 		{
 			get { return BookingSettings.GetDailyEndTime(this); }
 		}
@@ -122,7 +122,7 @@ namespace Umbraco.Web.PublishedContentModels
 		/// Daily start time
 		///</summary>
 		[ImplementPropertyType("dailyStartTime")]
-		public UBookable.ViewModels.Time DailyStartTime
+		public object DailyStartTime
 		{
 			get { return BookingSettings.GetDailyStartTime(this); }
 		}
@@ -163,10 +163,10 @@ namespace Umbraco.Web.PublishedContentModels
 		int AvailabilityPerSlot { get; }
 
 		/// <summary>Daily end time</summary>
-		UBookable.ViewModels.Time DailyEndTime { get; }
+		object DailyEndTime { get; }
 
 		/// <summary>Daily start time</summary>
-		UBookable.ViewModels.Time DailyStartTime { get; }
+		object DailyStartTime { get; }
 
 		/// <summary>Enabled booking</summary>
 		bool EnabledBooking { get; }
@@ -219,25 +219,25 @@ namespace Umbraco.Web.PublishedContentModels
 		/// Daily end time
 		///</summary>
 		[ImplementPropertyType("dailyEndTime")]
-		public UBookable.ViewModels.Time DailyEndTime
+		public object DailyEndTime
 		{
 			get { return GetDailyEndTime(this); }
 		}
 
 		/// <summary>Static getter for Daily end time</summary>
-		public static UBookable.ViewModels.Time GetDailyEndTime(IBookingSettings that) { return that.GetPropertyValue<UBookable.ViewModels.Time>("dailyEndTime"); }
+		public static object GetDailyEndTime(IBookingSettings that) { return that.GetPropertyValue("dailyEndTime"); }
 
 		///<summary>
 		/// Daily start time
 		///</summary>
 		[ImplementPropertyType("dailyStartTime")]
-		public UBookable.ViewModels.Time DailyStartTime
+		public object DailyStartTime
 		{
 			get { return GetDailyStartTime(this); }
 		}
 
 		/// <summary>Static getter for Daily start time</summary>
-		public static UBookable.ViewModels.Time GetDailyStartTime(IBookingSettings that) { return that.GetPropertyValue<UBookable.ViewModels.Time>("dailyStartTime"); }
+		public static object GetDailyStartTime(IBookingSettings that) { return that.GetPropertyValue("dailyStartTime"); }
 
 		///<summary>
 		/// Enabled booking: Select this option to enable booking for this item

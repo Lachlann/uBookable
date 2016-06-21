@@ -33,5 +33,9 @@ namespace UBookable.Models
         [Column("Cancelled")]
         public bool Cancelled { get; set; }
 
+        [Ignore]
+        public string StartDateISO { get; set; }
+        [Ignore]
+        public string EndDateISO { get; set; }
     }
 }

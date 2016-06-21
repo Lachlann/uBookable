@@ -16,20 +16,4 @@ namespace UBookable.ViewModels
         }
     }
 
-    [Umbraco.Core.PropertyEditors.PropertyValueType(typeof(Time))]
-    public class MyTimePropertyValueConverter : Umbraco.Core.PropertyEditors.PropertyValueConverterBase
-    {
-        public override bool IsConverter(PublishedPropertyType propertyType)
-        {
-            return propertyType.PropertyEditorAlias == "Timepicker";
-        }
-
-        public override object ConvertSourceToObject(PublishedPropertyType propertyType, object source, bool preview)
-        {
-            if (source == null)
-                return null;
-
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Time>(source.ToString());
-        }
-    }
 }

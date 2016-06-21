@@ -6,16 +6,24 @@ using System.Linq;
 using System.Web.Script.Serialization;
 using UBookable.ViewModels;
 using Umbraco.Core;
+using Umbraco.Core.Models.PublishedContent;
 
 namespace UBookable.TypeConvertors
 {
-    public class TimeTypeConvertor : TypeConverter
+    public class TimeTypeConvertor : Umbraco.Core.PropertyEditors.PropertyValueConverterBase
     {
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override bool IsConverter(PublishedPropertyType propertyType)
         {
-            JavaScriptSerializer oJS = new JavaScriptSerializer();
-            string time = "\"time\" : [" + value.ToString() + "]}";
-            return oJS.Deserialize<Time>(time);
+            return propertyType.PropertyEditorAlias == "Timepicker";
+        }
+
+        public override object ConvertSourceToObject(PublishedPropertyType propertyType, object source, bool preview)
+        {
+            if (source == null)
+                return null;
+
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<Time>(source.ToString());
         }
     }
 }
+

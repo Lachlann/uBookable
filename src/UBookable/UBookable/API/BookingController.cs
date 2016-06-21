@@ -25,7 +25,8 @@ namespace UBookable.API
         public HttpResponseMessage AddBooking (Booking booking)
         {
             HttpContext.Current.Response.ContentType = "application/json";
-
+            booking.StartDate = DateTime.Parse(booking.StartDateISO);
+            booking.EndDate = DateTime.Parse(booking.EndDateISO);
             Booking createdBooking  = Bookings.Save(booking);
 
             HttpContext.Current.Response.StatusCode = 200;
@@ -34,15 +35,17 @@ namespace UBookable.API
         }
 
         [HttpGet]
-        public HttpResponseMessage GetTimeSlotsByNodeId(int nodeId, long dayRequest)
+        public HttpResponseMessage GetTimeSlotsByNodeId(int nodeId, DateTime dayRequest)
         {
             HttpContext.Current.Response.ContentType = "application/json";
             BookableSettings settings = _uHelper.TypedContent(nodeId).As<BookableSettings>();
-            DateTime rDate = new DateTime(1970, 01, 01).AddMilliseconds(dayRequest);
-            Time dateStartTime = settings.DailyStartTime; //new JavaScriptSerializer().Deserialize<Time>(settings.DailyStartTime);
-            Time dateEndTime = settings.DailyEndTime; //new JavaScriptSerializer().Deserialize<Time>(settings.DailyEndTime);
-            DateTime startTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, dateStartTime.Hours,dateStartTime.Mins, 0).ToLocalTime();
-            DateTime endTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, dateEndTime.Hours, dateEndTime.Mins, 0).ToLocalTime();
+
+            DateTime rDate = dayRequest;
+
+            Time dateStartTime = settings.DailyStartTime;
+            Time dateEndTime = settings.DailyEndTime; 
+            DateTime startTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, dateStartTime.Hours,dateStartTime.Mins, 0);
+            DateTime endTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, dateEndTime.Hours, dateEndTime.Mins, 0);
 
             List<TimeSlot> timeslots = _ubHelper.GetDailyTimeSlots(nodeId, startTime, endTime, settings.MinimumBookingTimePeriod, settings.MinimumBookingLength);
             HttpContext.Current.Response.StatusCode = 200;
@@ -59,8 +62,8 @@ namespace UBookable.API
             IEnumerable<BookingResponse> allBookings = bookingsByNode.
                 Select(x => new BookingResponse
                 {
-                    EndDate = ((IDictionary<string, dynamic>)x)["EndDate"],
-                    StartDate = ((IDictionary<string, dynamic>)x)["StartDate"],
+                    EndDate =  DateTime.Parse(((IDictionary<string, dynamic>)x)["EndDate"].ToString("yyyy-MM-dd HH':'mm':'ss")),
+                    StartDate = DateTime.Parse(((IDictionary<string, dynamic>)x)["StartDate"].ToString("yyyy-MM-dd HH':'mm':'ss")),
                     Name = ((IDictionary<string, dynamic>)x)["Name"],
                     Approved = ((IDictionary<string, dynamic>)x)["Approved"],
                     Cancelled = ((IDictionary<string, dynamic>)x)["Cancelled"],
@@ -85,6 +88,9 @@ namespace UBookable.API
             Booker createdBooker = Bookers.Save(bookingRequest.booker);
 
             bookingRequest.booking.BookerID = createdBooker.BookerID;
+
+            bookingRequest.booking.StartDate = DateTime.Parse(bookingRequest.booking.StartDateISO);
+            bookingRequest.booking.EndDate = DateTime.Parse(bookingRequest.booking.EndDateISO);
 
             Booking createdBooking = Bookings.Save(bookingRequest.booking);
 

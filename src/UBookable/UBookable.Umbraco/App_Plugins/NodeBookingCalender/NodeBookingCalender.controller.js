@@ -8,6 +8,7 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
         method: "GET",
         params: { nodeId: nodeId }
     }).then(function successCallback(response) {
+        console.log(response);
         $scope.BookingData = response;
         initCal(response);
     });

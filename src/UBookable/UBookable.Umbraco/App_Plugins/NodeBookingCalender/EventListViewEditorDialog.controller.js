@@ -10,6 +10,7 @@
        
 
         var daySelected = new Date($scope.dialogData.year, $scope.dialogData.month, $scope.dialogData.day);
+        console.log(daySelected);
         $scope.DayKey = moment(daySelected).format('YYYYMMDD');
         var todayData = $filter('filter')($scope.dialogData.BookingData.data, { Date: $scope.DayKey })
         var todaysBookings = (todayData.length > 0) ? todaysBookings = todayData[0].Bookings : [];
@@ -20,7 +21,7 @@
         $http({
             url: "/umbraco/api/booking/gettimeslotsbynodeid",
             method: "GET",
-            params: { nodeId: $scope.dialogData.nodeId, dayRequest: daySelected.getTime() }
+            params: { nodeId: $scope.dialogData.nodeId, dayRequest: daySelected.toISOString() }
         }).then(
             function successCallback(response) {
                 console.log(response);
