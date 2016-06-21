@@ -1,14 +1,12 @@
 ﻿var uBookable = (function ($) {
 
-    function _saveBookingAndBooker(nodeid, startDate, endDate, bookerName, autoApprove) {
+    function _saveBookingAndBooker(nodeid, startDate, endDate, bookerName, autoApprove, memberId) {
         console.log("save booking");
-
-
         var approve = (autoApprove === undefined) ? false : autoApprove;
         console.log('save booking and booker: ')
         var testBooking = Booking(nodeid, '', startDate, endDate, approve)
-        var testBooker = Booker(bookerName)
-
+        var testBooker = Booker(bookerName, memberId)
+        console.log(testBooker);
         
         var data = {}
         data['booker'] = testBooker

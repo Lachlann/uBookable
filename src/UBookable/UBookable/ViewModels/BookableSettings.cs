@@ -10,8 +10,8 @@ namespace UBookable.ViewModels
         public bool EnabledBooking { get; set; }
         public int MinimumBookingLength { get; set; }
         public string MinimumBookingTimePeriod { get; set; }
-        public string DailyStartTime { get; set; }
-        public string DailyEndTime { get; set; }
+        public Time DailyStartTime { get; set; }
+        public Time DailyEndTime { get; set; }
         public int AvailabilityPerSlot { get; set; }
     }
 }

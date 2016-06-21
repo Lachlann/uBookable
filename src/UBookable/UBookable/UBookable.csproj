@@ -296,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\BookingController.cs" />
+    <Compile Include="API\MemberBookingController.cs" />
     <Compile Include="ApplicationEvents\CreateTables.cs" />
     <Compile Include="Helpers\UBookableHelper.cs" />
     <Compile Include="Models\Booker.cs" />

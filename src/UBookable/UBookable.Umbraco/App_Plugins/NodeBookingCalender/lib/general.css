@@ -60,3 +60,10 @@ margin-bottom:15px;
     left: 0px;
     right: 0px;
 }
+
+.member-results-holder {
+    display:block;
+    position:relative;
+    margin-top:15px;
+    margin-bottom:20px;
+}

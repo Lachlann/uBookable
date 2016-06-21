@@ -6,7 +6,8 @@
         $scope.autoApproved = true;
         $scope.hideCancelled = true;
         $scope.hideApproved = false;
-
+        $scope.memberSearching = null;
+       
 
         var daySelected = new Date($scope.dialogData.year, $scope.dialogData.month, $scope.dialogData.day);
         $scope.DayKey = moment(daySelected).format('YYYYMMDD');
@@ -35,15 +36,39 @@
     	        return day.Date === date;
     	    }
     	}
+    	
+    	$scope.$watch('memberSearch', function (val) {
+    	    console.log(val);
+    	    if (val !== undefined && val.length > 3) {
+    	        $scope.memberSearching = true;
+    	        $http({
+    	            url: "/umbraco/backoffice/UmbracoApi/Member/GetPagedResults",
+    	            method: "GET",
+    	            params: { pageNumber: 1, pageSize: 20, orderBy:"Name",orderDirection:"Ascending", filter:val }
+    	        }).then(function (response) {
+    	            console.log(response);
+    	            $scope.memberResults = response.data.items;
+    	            $scope.memberSearching = false;
+    	        });
+    	    }
+    	})
+    	$scope.chooseMember = function (member) {
+    	    console.log(member);
+    	    $scope.chosenMember = member;
+    	}
+    	$scope.cancelMemberChoice = function () {
+    	    $scope.chosenMember = null;
+    	}
     	$scope.submitNewBooking = function () {
-    	    var bookingName = $scope.newBookingName;
+    	    var bookingName = $scope.chosenMember.username;
+    	    var memberId = $scope.chosenMember.id;
     	    var timeslotsArray = $scope.timeslots.split('#');
     	    var start = timeslotsArray[0].split(':');
     	    var end = timeslotsArray[1].split(':');
     	    var startTime = new Date(daySelected.setHours(start[0], start[1]));
     	    var endTime = new Date(daySelected.setHours(end[0], end[1]));
 
-    	    uBookable.SaveBookingAndBooker($scope.dialogData.nodeId, startTime, endTime, $scope.newBookingName, $scope.autoApproved).done(function (booking) {
+    	    uBookable.SaveBookingAndBooker($scope.dialogData.nodeId, startTime, endTime, bookingName, $scope.autoApproved, memberId).done(function (booking) {
     	        booking.Name = bookingName; // bit of a hack but saves hving to do it on the server.
     	        $scope.model.Bookings.push(booking);
     	        notificationsService.success("New booking added", "The new booking has been successfully added");

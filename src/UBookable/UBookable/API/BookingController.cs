@@ -39,10 +39,10 @@ namespace UBookable.API
             HttpContext.Current.Response.ContentType = "application/json";
             BookableSettings settings = _uHelper.TypedContent(nodeId).As<BookableSettings>();
             DateTime rDate = new DateTime(1970, 01, 01).AddMilliseconds(dayRequest);
-            Time dateStartTime = new JavaScriptSerializer().Deserialize<Time>(settings.DailyStartTime);
-            Time dateEndTime = new JavaScriptSerializer().Deserialize<Time>(settings.DailyEndTime);
-            DateTime startTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, int.Parse(dateStartTime.Hours), int.Parse(dateStartTime.Mins), 0).ToLocalTime();
-            DateTime endTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, int.Parse(dateEndTime.Hours), int.Parse(dateEndTime.Mins), 0).ToLocalTime();
+            Time dateStartTime = settings.DailyStartTime; //new JavaScriptSerializer().Deserialize<Time>(settings.DailyStartTime);
+            Time dateEndTime = settings.DailyEndTime; //new JavaScriptSerializer().Deserialize<Time>(settings.DailyEndTime);
+            DateTime startTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, dateStartTime.Hours,dateStartTime.Mins, 0).ToLocalTime();
+            DateTime endTime = new DateTime(rDate.Year, rDate.Month, rDate.Day, dateEndTime.Hours, dateEndTime.Mins, 0).ToLocalTime();
 
             List<TimeSlot> timeslots = _ubHelper.GetDailyTimeSlots(nodeId, startTime, endTime, settings.MinimumBookingTimePeriod, settings.MinimumBookingLength);
             HttpContext.Current.Response.StatusCode = 200;

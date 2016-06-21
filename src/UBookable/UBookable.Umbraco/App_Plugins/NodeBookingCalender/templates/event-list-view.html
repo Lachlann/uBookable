@@ -27,23 +27,58 @@
         <div class="new-booking-form ">
             <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-badge-add':!showAddNew,  'icon-badge-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
             <form novalidate ng-show="showAddNew || model.Bookings.length ==0 ">
-                <div class="form-row ">
+
+                <!--<div class="form-row ">
                     <label for="BookingName">Booker Name:</label>
                     <input name="BookingName" ng-model="newBookingName" type="text" required />
+                </div>-->
+                <div class="member-choose" ng-show="!chosenMember">
+                    <div class="umb-control-group">
+                        <label>Find existing member:</label>
+                        <div class="form-search" hide-search-callback="hideSearch" search-callback="onSearchResults" search-from-id="-1" search-from-name="" show-search="false" section="content">
+                            <i class="icon icon-search"></i>
+                            <input type="text" ng-model-options="{debounce: 2000}" ng-model="memberSearch" class="umb-search-field search-query" placeholder="Type to search for members..." />
+                        </div>
+                    </div>
+                    <div class="member-results-holder clearfix">
+                        <umb-load-indicator ng-if="memberSearching"></umb-load-indicator>
+
+                        <div ng-if="memberResults === null">No results, try searching again or create a new member</div>
+
+                        <div class="member-result" ng-repeat="member in memberResults">
+                            <div class="pull-right">
+                                <button class="btn btn-primary" ng-click="chooseMember(member)">Choose</button>
+                            </div>
+                            <h4>{{member.name}}</h4>
+                            <p><strong>Username:</strong> {{member.username}} <br /> <strong>Email:</strong> {{member.email}}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-row ">
-                    <label for="timeSlot">Time slot:</label>
-                    <select ng-model="timeslots">
-                        <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
-                    </select>
+
+               
+
+                <div class="add-booking"  ng-show="chosenMember">
+                    <div class="booker-details">
+                        <p><strong>Booking for:</strong> {{chosenMember.username}}</p>
+                        
+                    </div>
+
+                    <div class="form-row ">
+                        <label for="timeSlot">Time slot:</label>
+                        <select ng-model="timeslots">
+                            <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
+                        </select>
+                    </div>
+                    <div class="form-row  form-inline">
+                        <label for="timeSlot">Approve:</label>
+                        <input type="checkbox" ng-model="autoApproved" />
+                    </div>
+                    <div class="form-row ">
+                        <button class="btn btn-default pull-right" ng-click="cancelMemberChoice()">Cancel</button>
+                        <button class="btn btn-primary pull-right" ng-click="submitNewBooking()">Save</button>
+                    </div>
                 </div>
-                <div class="form-row  form-inline">
-                    <label for="timeSlot">Approve:</label>
-                    <input type="checkbox" ng-model="autoApproved" />
-                </div>
-                <div class="form-row ">
-                    <button class="btn btn-primary pull-right" ng-click="submitNewBooking()">Save</button>
-                </div>
+
             </form>
         </div>
     </div>
