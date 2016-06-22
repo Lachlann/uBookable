@@ -17,9 +17,7 @@ namespace UBookable.Models
         public string NodeID { get; set; }
 
         [Column("BookerID")]
-        [ForeignKey(typeof(Booker), Name = "FK_UBBookers")]
-        [IndexAttribute(IndexTypes.NonClustered, Name ="IX_BookerID")]
-        public int BookerID { get; set; }
+        public string BookerID { get; set; }
 
         [Column("StartDate")]
         public DateTime StartDate { get; set; }

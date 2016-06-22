@@ -7,7 +7,22 @@
         $scope.hideCancelled = true;
         $scope.hideApproved = false;
         $scope.memberSearching = null;
-       
+
+        function getTimeSlots(nodeID, daySelected) {
+            $http({
+                url: "/umbraco/api/booking/gettimeslotsbynodeid",
+                method: "GET",
+                params: { nodeId: nodeID, dayRequest: daySelected.toISOString() }
+            }).then(
+                function successCallback(response) {
+                    console.log(response);
+                    $scope.DateOptions = response.data
+                },
+                function errorCallback(response) {
+                    notificationsService.error("Failed to retireive time slots for this date", "Please contact your system admin");
+                }
+            );
+        }
 
         var daySelected = new Date($scope.dialogData.year, $scope.dialogData.month, $scope.dialogData.day);
         console.log(daySelected);
@@ -18,19 +33,8 @@
             DateTitle: moment(daySelected).format('MMMM Do YYYY'),
             Bookings: todaysBookings
         }
-        $http({
-            url: "/umbraco/api/booking/gettimeslotsbynodeid",
-            method: "GET",
-            params: { nodeId: $scope.dialogData.nodeId, dayRequest: daySelected.toISOString() }
-        }).then(
-            function successCallback(response) {
-                console.log(response);
-                $scope.DateOptions = response.data
-            },
-            function errorCallback(response) {
-                notificationsService.error("Failed to retireive time slots for this date", "Please contact your system admin");
-            }
-        );
+        getTimeSlots($scope.dialogData.nodeId, daySelected);
+
 
     	$scope.getByDayKey = function (date) {
     	    return function (day) {
@@ -46,11 +50,12 @@
     	            url: "/umbraco/backoffice/UmbracoApi/Member/GetPagedResults",
     	            method: "GET",
     	            params: { pageNumber: 1, pageSize: 20, orderBy:"Name",orderDirection:"Ascending", filter:val }
-    	        }).then(function (response) {
+    	        }).then(
+                function (response) {
     	            console.log(response);
     	            $scope.memberResults = response.data.items;
     	            $scope.memberSearching = false;
-    	        });
+                });
     	    }
     	})
     	$scope.chooseMember = function (member) {
@@ -69,10 +74,21 @@
     	    var startTime = new Date(daySelected.setHours(start[0], start[1]));
     	    var endTime = new Date(daySelected.setHours(end[0], end[1]));
 
-    	    uBookable.SaveBookingAndBooker($scope.dialogData.nodeId, startTime, endTime, bookingName, $scope.autoApproved, memberId).done(function (booking) {
+    	    uBookable.SaveBooking($scope.dialogData.nodeId, memberId, startTime, endTime, $scope.autoApproved).done(function (booking) {
     	        booking.Name = bookingName; // bit of a hack but saves hving to do it on the server.
     	        $scope.model.Bookings.push(booking);
+    	        getTimeSlots($scope.dialogData.nodeId, daySelected);
+    	        $scope.memberResults = "";
+    	        $scope.chosenMember = null;
+    	        $scope.timeslots = null;
     	        notificationsService.success("New booking added", "The new booking has been successfully added");
+    	    }).fail(function (xhr, textStatus) {
+    	        console.log(xhr.status);
+    	        if (xhr.status === 422) {
+    	            notificationsService.error("Booking failed", "There are no more free spaces in this timeslot");
+    	        } else {
+    	            notificationsService.error("Booking failed, status: " + xhr.status, textStatus);
+    	        }
     	    });
     	}
     	$scope.Approve = function (bookingId) {

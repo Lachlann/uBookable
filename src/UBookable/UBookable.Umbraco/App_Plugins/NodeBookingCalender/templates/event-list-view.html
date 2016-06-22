@@ -5,7 +5,7 @@
     </div>
 
     <div class="event-list-dialogue umb-overlay-container">
-        <h2 ng-click="showBookings = !showBookings">Current bookings  <span ng-class="{'icon-badge-add' :!showBookings,  'icon-badge-remove' : showBookings}" class="pull-right large-icon"></span></h2>
+        <h2 ng-click="showBookings = !showBookings">Current bookings  <span ng-class="{'icon-add' :!showBookings,  'icon-remove' : showBookings}" class="pull-right large-icon"></span></h2>
         
 
          <div class="Inner">
@@ -16,7 +16,7 @@
 
                 <div ng-repeat="booking in model.Bookings" ng-hide="(hideCancelled && booking.Cancelled) || (hideApproved && booking.Approved && !booking.Cancelled)" ng-class="{cancelled : booking.Cancelled, approved : booking.Approved}" class="event-row
                  dialogPad">
-                    <span class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</span>
+                    <a href="/umbraco/#/member/member/edit/{{booking.MemberID}}" class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</a>
                     <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved || booking.Cancelled" class="btn btn-primary">Approve</button>
                     <button ng-click="Cancel(booking.BookingID)" ng-hide="booking.Cancelled" class="btn btn-danger">Cancel</button>
                     <span ng-show="booking.Cancelled" class="canceled-text">Cancelled</span>
@@ -25,13 +25,8 @@
         </div>
 
         <div class="new-booking-form ">
-            <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-badge-add':!showAddNew,  'icon-badge-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
+            <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-add':!showAddNew,  'icon-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
             <form novalidate ng-show="showAddNew || model.Bookings.length ==0 ">
-
-                <!--<div class="form-row ">
-                    <label for="BookingName">Booker Name:</label>
-                    <input name="BookingName" ng-model="newBookingName" type="text" required />
-                </div>-->
                 <div class="member-choose" ng-show="!chosenMember">
                     <div class="umb-control-group">
                         <label>Find existing member:</label>

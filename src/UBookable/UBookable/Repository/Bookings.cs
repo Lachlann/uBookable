@@ -19,16 +19,16 @@ namespace UBookable.Repository
             return db.Page<Booking>(Page, RecordsPerPage, "SELECT * FROM UBBookings ORDER BY StartDate");
         }
 
-        public static IList<Booking> GetAllByBookerID(int AuthorID)
+        public static IList<Booking> GetAllByBookerID(int bookerID)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
-            return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", AuthorID);
+            return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", bookerID);
         }
 
-        public static Page<Booking> GetAllPagedByBookerID(int Page, int RecordsPerPage, int AuthorID)
+        public static Page<Booking> GetAllPagedByBookerID(int Page, int RecordsPerPage, int bookerID)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
-            return db.Page<Booking>(Page, RecordsPerPage, "SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", AuthorID);
+            return db.Page<Booking>(Page, RecordsPerPage, "SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", bookerID);
         }
 
         public static Booking GetByBookingID(int BookingID)
@@ -49,11 +49,17 @@ namespace UBookable.Repository
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
             return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE NodeID = @0  AND StartDate = @1 AND EndDate = @2", BookableID, start, end);
         }
-
-        public static IEnumerable<dynamic> GetByBookingsByNodeId(int BookableID)
+        public static List<Booking> GetByUnCancelledBookingsByNodeIDAndDate(int BookableID, DateTime start, DateTime end)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
-            return db.Query<dynamic>("SELECT UBBookings.BookingID, UBBookings.StartDate, UBBookings.EndDate, UBBookings.Approved, UBBookings.Cancelled, UBBookers.BookerID, UBBookers.Name  FROM UBBookings INNER JOIN UBBookers ON UBBookings.BookerID = UBBookers.BookerID  WHERE NodeID = @0", BookableID);
+            return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE NodeID = @0  AND StartDate = @1 AND EndDate = @2 AND Cancelled = 0", BookableID, start, end);
+        }
+        //
+
+        public static List<Booking> GetByBookingsByNodeId(int BookableID)
+        {
+            UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
+            return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE NodeID = @0", BookableID);
         }
 
         public static Booking Approve(int BookingId)

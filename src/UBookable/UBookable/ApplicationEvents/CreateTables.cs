@@ -10,10 +10,10 @@ namespace UBookable.ApplicationEvents
             var ctx = applicationContext.DatabaseContext;
             var db = new DatabaseSchemaHelper(ctx.Database, applicationContext.ProfilingLogger.Logger, ctx.SqlSyntax);
 
-            if (!db.TableExist("UBBookers"))
-            {
-                db.CreateTable<Booker>(false);
-            }
+            //if (!db.TableExist("UBBookers"))
+            //{
+            //    db.CreateTable<Booker>(false);
+            //}
 
             if (!db.TableExist("UBBookings"))
             {

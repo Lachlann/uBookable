@@ -3,15 +3,18 @@ itembasedbookingApp.requires.push('500tech.simple-calendar');
 
 itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope, $filter, $http, $routeParams, dialogService) {
     var nodeId = $routeParams.id;
-    $http({
-        url: "/umbraco/api/booking/getallbookingsbynodeid",
-        method: "GET",
-        params: { nodeId: nodeId }
-    }).then(function successCallback(response) {
-        console.log(response);
-        $scope.BookingData = response;
-        initCal(response);
-    });
+    function getBookingsById(nodeId) {
+        $http({
+            url: "/umbraco/api/booking/getallbookingsbynodeid",
+            method: "GET",
+            params: { nodeId: nodeId }
+        }).then(function successCallback(response) {
+            console.log(response);
+            $scope.BookingData = response;
+            initCal(response);
+        });
+    }
+    getBookingsById(nodeId);
 
 
 
@@ -44,8 +47,8 @@ itembasedbookingApp.controller("UBookable.NodeBookingCalender", function ($scope
                 template: '/App_Plugins/NodeBookingCalender/templates/event-list-view.html',
                 show: true,
                 dialogData: data,
-                callback: function (value) {
-
+                closeCallback: function (value) {
+                    getBookingsById(nodeId);
                 }
             });
         },
