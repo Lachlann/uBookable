@@ -306,6 +306,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\MemberBookingCalender\EventListViewEditorDialog.controller.js" />
+    <Content Include="App_Plugins\MemberBookingCalender\lib\calendar.css" />
+    <Content Include="App_Plugins\MemberBookingCalender\lib\general.css" />
+    <Content Include="App_Plugins\MemberBookingCalender\MemberBookingCalender.controller.js" />
+    <Content Include="App_Plugins\MemberBookingCalender\MemberBookingCalender.html" />
+    <Content Include="App_Plugins\MemberBookingCalender\templates\event-list-view.html" />
     <Content Include="App_Plugins\NodeBookingCalender\lib\calendar.css" />
     <Content Include="App_Plugins\NodeBookingCalender\lib\general.css" />
     <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.controller.js" />
@@ -835,6 +841,7 @@
     <Content Include="bower_components\angular-simple-calendar\src\angular-simple-calendar.coffee" />
     <Content Include="bower_components\angular-simple-calendar\src\angular-simple-calendar.scss" />
     <Content Include="App_Plugins\NodeBookingCalender\EventListViewEditorDialog.controller.js" />
+    <Content Include="App_Plugins\MemberBookingCalender\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

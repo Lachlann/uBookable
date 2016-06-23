@@ -484,6 +484,15 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
+		/// Bookings
+		///</summary>
+		[ImplementPropertyType("bookings")]
+		public object Bookings
+		{
+			get { return this.GetPropertyValue("bookings"); }
+		}
+
+		///<summary>
 		/// Phone number
 		///</summary>
 		[ImplementPropertyType("phoneNumber")]

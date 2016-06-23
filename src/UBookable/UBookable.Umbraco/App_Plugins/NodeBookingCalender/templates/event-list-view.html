@@ -18,8 +18,9 @@
                  dialogPad">
                     <a href="/umbraco/#/member/member/edit/{{booking.MemberID}}" class="details">{{booking.Name}} - {{booking.StartDate | fixDate }} to {{booking.EndDate | fixDate }}</a>
                     <button ng-click="Approve(booking.BookingID)" ng-hide="booking.Approved || booking.Cancelled" class="btn btn-primary">Approve</button>
-                    <button ng-click="Cancel(booking.BookingID)" ng-hide="booking.Cancelled" class="btn btn-danger">Cancel</button>
-                    <span ng-show="booking.Cancelled" class="canceled-text">Cancelled</span>
+                    <button ng-click="Cancel(booking.BookingID)" ng-hide="booking.Cancelled" class="btn btn-warning">Cancel</button>
+                    <span ng-show="booking.Cancelled" class="canceled-text">Cancelled &nbsp;</span>
+                    <button ng-click="Delete(booking.BookingID)" ng-show="booking.Cancelled" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
                     <div class="form-row ">
                         <label for="timeSlot">Time slot:</label>
                         <select ng-model="timeslots">
-                            <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
+                            <option ng-repeat="item in DateOptions" ng-disabled="item.AvailableSpaces <= 0 && item.TotalSpaces > 0" value="{{item.StartTime | fixDate }}#{{item.EndTime | fixDate }}">{{item.StartTime | fixDate }} {{item.EndTime | fixDate }}</option>
                         </select>
                     </div>
                     <div class="form-row  form-inline">

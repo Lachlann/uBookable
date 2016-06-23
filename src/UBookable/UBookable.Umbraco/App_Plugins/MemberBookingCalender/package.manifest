@@ -1,0 +1,29 @@
+﻿{
+    //you can define multiple editors
+    propertyEditors: [
+        {
+            /*this must be a unique alias*/
+            alias: "MemberBookingCalender",
+            /*the name*/
+            name: "Member Booking Calender",
+            /*the icon*/
+            icon: "icon-umb-contour",
+            /*the HTML file we will load for the editor*/
+            editor: {
+                view: "~/App_Plugins/MemberBookingCalender/MemberBookingCalender.html"
+            }
+        }
+    ]
+    ,
+    //array of files we want to inject into the application on app_start
+    javascript: [
+		'~/Scripts/ubookable/ubookable.js',
+		'~/bower_components/angular-simple-calendar/dist/angular-simple-calendar.js',
+		'~/App_Plugins/MemberBookingCalender/MemberBookingListViewEditorDialog.controller.js',
+        '~/App_Plugins/MemberBookingCalender/MemberBookingCalender.controller.js'
+    ],
+	css: [
+	 '~/App_Plugins/MemberBookingCalender/lib/calendar.css',
+	 '~/App_Plugins/MemberBookingCalender/lib/general.css'
+	]
+}

@@ -19,7 +19,7 @@ namespace UBookable.Repository
             return db.Page<Booking>(Page, RecordsPerPage, "SELECT * FROM UBBookings ORDER BY StartDate");
         }
 
-        public static IList<Booking> GetAllByBookerID(int bookerID)
+        public static List<Booking> GetAllByBookerID(int bookerID)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
             return db.Fetch<Booking>("SELECT * FROM UBBookings WHERE BookerID = @0 ORDER BY StartDate", bookerID);
@@ -81,8 +81,12 @@ namespace UBookable.Repository
         public static Booking Save(Booking item)
         {
             UmbracoDatabase db = Umbraco.Core.ApplicationContext.Current.DatabaseContext.Database;
-            db.Save(item);
-            return item;
+            using (var uow = db.GetTransaction())
+            {
+                db.Save(item);
+                uow.Complete();
+                return item;
+            }
         }
 
         public static int DeleteByBookingID(int BookingID)

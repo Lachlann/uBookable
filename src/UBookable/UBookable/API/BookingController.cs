@@ -36,7 +36,7 @@ namespace UBookable.API
             BookableSettings nodeSettings = _uHelper.TypedContent(booking.NodeID).As<BookableSettings>();
             int maxBookings = nodeSettings.AvailabilityPerSlot;
             int currentBookingsInSpace = Bookings.GetByUnCancelledBookingsByNodeIDAndDate(int.Parse(booking.NodeID), booking.StartDate, booking.EndDate).Count;
-            if (currentBookingsInSpace < maxBookings)
+            if (nodeSettings.AvailabilityPerSlot == 0 || currentBookingsInSpace < maxBookings)
             {
                 Booking createdBooking = Bookings.Save(booking);
                 HttpContext.Current.Response.StatusCode = 200;
@@ -98,23 +98,35 @@ namespace UBookable.API
             HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(groupedresponse));
             return new HttpResponseMessage();
         }
+        public HttpResponseMessage GetAllBookingsByMemberId(string memberKey)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+
+            IMemberService _memberService = UmbracoContext.Application.Services.MemberService;
+            int memberId = _memberService.GetByKey(new Guid(memberKey)).Id;
+
+            List<Booking> bookingsByMember= Bookings.GetAllByBookerID(memberId);
+            IEnumerable<BookingResponse> response = bookingsByMember.Select(x => new BookingResponse
+            {
+                Approved = x.Approved,
+                BookerID = x.BookerID,
+                BookingID = x.BookingID,
+                Cancelled = x.Cancelled,
+                Count = bookingsByMember.Count(),
+                EndDate = DateTime.Parse(x.EndDate.ToString("yyyy-MM-dd HH':'mm':'ss")),
+                StartDate = DateTime.Parse(x.StartDate.ToString("yyyy-MM-dd HH':'mm':'ss")),
+                Name = _memberService.GetById(int.Parse(x.BookerID)).Name
+            });
+
+            var groupedresponse = response.GroupBy(x => x.StartDate.ToString("yyyyMMdd"),
+                (key, values) => new { Date = key, Count = values.Count(), Bookings = values }
+                );
 
 
-        //[HttpPost]
-        //public HttpResponseMessage AddBookingAndBooker(Booking booking)
-        //{
-        //    HttpContext.Current.Response.ContentType = "application/json";
-
-        //    booking.StartDate = DateTime.Parse(booking.StartDateISO);
-        //    booking.EndDate = DateTime.Parse(booking.EndDateISO);
-
-        //    Booking createdBooking = Bookings.Save(booking);
-
-        //    HttpContext.Current.Response.StatusCode = 200;
-        //    HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(createdBooking));
-        //    return new HttpResponseMessage();
-        //}
-
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(groupedresponse));
+            return new HttpResponseMessage();
+        }
 
         [AcceptVerbs("GET")]
         public HttpResponseMessage GetDayBookingSlots(long start, long end, int Id, string period, int duration)
@@ -123,6 +135,18 @@ namespace UBookable.API
             List<TimeSlot> timeSlots = _ubHelper.GetDailyTimeSlots(Id, UnixTimeStampToDateTime(start) , UnixTimeStampToDateTime(end), period, duration);
             HttpContext.Current.Response.StatusCode = 200;
             HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(timeSlots));
+            return new HttpResponseMessage();
+        }
+
+        [AcceptVerbs("DELETE")]
+        public HttpResponseMessage DeleteBooking(int bookingId)
+        {
+            HttpContext.Current.Response.ContentType = "application/json";
+
+            int response = Bookings.DeleteByBookingID(bookingId);
+
+            HttpContext.Current.Response.StatusCode = 200;
+            HttpContext.Current.Response.Write(new JavaScriptSerializer().Serialize(response));
             return new HttpResponseMessage();
         }
 
