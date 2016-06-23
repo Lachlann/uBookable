@@ -83,21 +83,21 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Booking Calender
-		///</summary>
-		[ImplementPropertyType("bookingCalender")]
-		public object BookingCalender
-		{
-			get { return this.GetPropertyValue("bookingCalender"); }
-		}
-
-		///<summary>
 		/// Enable booking: Enable booking for this item
 		///</summary>
 		[ImplementPropertyType("enableBooking")]
 		public bool EnableBooking
 		{
 			get { return this.GetPropertyValue<bool>("enableBooking"); }
+		}
+
+		///<summary>
+		/// Node booking calendar
+		///</summary>
+		[ImplementPropertyType("nodeBookingCalendar")]
+		public object NodeBookingCalendar
+		{
+			get { return this.GetPropertyValue("nodeBookingCalendar"); }
 		}
 
 		///<summary>

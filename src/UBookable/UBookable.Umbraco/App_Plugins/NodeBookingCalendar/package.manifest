@@ -3,14 +3,14 @@
     propertyEditors: [
         {
             /*this must be a unique alias*/
-            alias: "NodeBookingCalender",
+            alias: "NodeBookingCalendar",
             /*the name*/
-            name: "Node Booking Calender",
+            name: "Node Booking Calendar",
             /*the icon*/
             icon: "icon-umb-contour",
             /*the HTML file we will load for the editor*/
             editor: {
-                view: "~/App_Plugins/NodeBookingCalender/NodeBookingCalender.html"
+                view: "~/App_Plugins/NodeBookingCalendar/NodeBookingCalendar.html"
             }
         }
     ]
@@ -19,11 +19,11 @@
     javascript: [
 		'~/Scripts/ubookable/ubookable.js',
 		'~/bower_components/angular-simple-calendar/dist/angular-simple-calendar.js',
-		'~/App_Plugins/NodeBookingCalender/EventListViewEditorDialog.controller.js',
-        '~/App_Plugins/NodeBookingCalender/NodeBookingCalender.controller.js'
+		'~/App_Plugins/NodeBookingCalendar/NodeBookingListViewEditorDialog.controller.js',
+        '~/App_Plugins/NodeBookingCalendar/NodeBookingCalendar.controller.js'
     ],
 	css: [
-	 '~/App_Plugins/NodeBookingCalender/lib/calendar.css',
-	 '~/App_Plugins/NodeBookingCalender/lib/general.css'
+	 '~/App_Plugins/NodeBookingCalendar/lib/calendar.css',
+	 '~/App_Plugins/NodeBookingCalendar/lib/general.css'
 	]
 }

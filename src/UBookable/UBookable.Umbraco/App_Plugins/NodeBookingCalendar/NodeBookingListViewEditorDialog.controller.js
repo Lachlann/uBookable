@@ -1,5 +1,5 @@
 ﻿var eventslistapp =  angular.module('umbraco')
-    .controller('EventListViewEditorDialog.Controller',
+    .controller('NodeBookingListViewEditorDialog.Controller',
     function ($scope, $filter, $http, notificationsService) {
         $scope.showBookings = true;
         $scope.showAddNew = false;

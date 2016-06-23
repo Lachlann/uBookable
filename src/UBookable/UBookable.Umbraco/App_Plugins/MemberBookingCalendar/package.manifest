@@ -3,14 +3,14 @@
     propertyEditors: [
         {
             /*this must be a unique alias*/
-            alias: "MemberBookingCalender",
+            alias: "MemberBookingCalendar",
             /*the name*/
-            name: "Member Booking Calender",
+            name: "Member Booking Calendar",
             /*the icon*/
             icon: "icon-umb-contour",
             /*the HTML file we will load for the editor*/
             editor: {
-                view: "~/App_Plugins/MemberBookingCalender/MemberBookingCalender.html"
+                view: "~/App_Plugins/MemberBookingCalendar/MemberBookingCalendar.html"
             }
         }
     ]
@@ -19,11 +19,11 @@
     javascript: [
 		'~/Scripts/ubookable/ubookable.js',
 		'~/bower_components/angular-simple-calendar/dist/angular-simple-calendar.js',
-		'~/App_Plugins/MemberBookingCalender/MemberBookingListViewEditorDialog.controller.js',
-        '~/App_Plugins/MemberBookingCalender/MemberBookingCalender.controller.js'
+		'~/App_Plugins/MemberBookingCalendar/MemberBookingListViewEditorDialog.controller.js',
+        '~/App_Plugins/MemberBookingCalendar/MemberBookingCalendar.controller.js'
     ],
 	css: [
-	 '~/App_Plugins/MemberBookingCalender/lib/calendar.css',
-	 '~/App_Plugins/MemberBookingCalender/lib/general.css'
+	 '~/App_Plugins/MemberBookingCalendar/lib/calendar.css',
+	 '~/App_Plugins/MemberBookingCalendar/lib/general.css'
 	]
 }

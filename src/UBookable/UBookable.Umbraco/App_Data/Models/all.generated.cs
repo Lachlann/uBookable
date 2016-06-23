@@ -7,7 +7,7 @@ using  Umbraco.Core.Models.PublishedContent;
 using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
-[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.2")]
 
 
 // FILE: models.generated.cs
@@ -97,21 +97,21 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Booking Calender
-		///</summary>
-		[ImplementPropertyType("bookingCalender")]
-		public object BookingCalender
-		{
-			get { return this.GetPropertyValue("bookingCalender"); }
-		}
-
-		///<summary>
 		/// Enable booking: Enable booking for this item
 		///</summary>
 		[ImplementPropertyType("enableBooking")]
 		public bool EnableBooking
 		{
 			get { return this.GetPropertyValue<bool>("enableBooking"); }
+		}
+
+		///<summary>
+		/// Node booking calendar
+		///</summary>
+		[ImplementPropertyType("nodeBookingCalendar")]
+		public object NodeBookingCalendar
+		{
+			get { return this.GetPropertyValue("nodeBookingCalendar"); }
 		}
 
 		///<summary>
