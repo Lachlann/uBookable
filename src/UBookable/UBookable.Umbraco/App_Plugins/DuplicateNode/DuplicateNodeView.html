@@ -9,9 +9,9 @@
             <button class="btn" ng-click="timesToDuplicate = 10">x10</button>
             <button class="btn" ng-click="timesToDuplicate = 15">x15</button>
         </div>
-        <div class="form-row">
+        <div class="row">
             <label><localize key="DuplicateNode_labelText">Other amount: </localize></label>
-            <input style="width:30px;" ng-model="timesToDuplicate" type="number" max="30" min="1" />
+            <input ng-model="timesToDuplicate" type="number" class="dupe-times" max="20" min="1" />
         </div>
         <div class="row">
             <label>Auto publish?</label>

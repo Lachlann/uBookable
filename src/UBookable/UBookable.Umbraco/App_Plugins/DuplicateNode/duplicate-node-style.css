@@ -1,0 +1,12 @@
+﻿#DuplicateNodeControl .row label{
+    display:inline-block;
+}
+#DuplicateNodeControl .row input{
+    display:inline-block;
+    margin-left: 5px;
+    margin-top:0px;
+    vertical-align: middle;
+}
+.dupe-times {
+    width:30px;
+}

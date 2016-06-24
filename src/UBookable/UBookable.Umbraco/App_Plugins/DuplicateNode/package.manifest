@@ -3,5 +3,8 @@
     javascript: [
 		'~/App_Plugins/DuplicateNode/Data/lorem-ipsum-names.js',
         '~/App_Plugins/DuplicateNode/DuplicateNode.controller.js'
-    ]
+    ],
+	css:[
+		'~/App_Plugins/DuplicateNode/duplicate-node-style.css'
+	]
 }

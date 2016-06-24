@@ -10,7 +10,7 @@ duplicateNodeCntrl.controller("DuplicateNode", function ($scope, $filter, $http,
 
     $scope.duplicate = function () {
         console.log($scope.autoPublish)
-        if ($scope.timesToDuplicate < 15) {
+        if ($scope.timesToDuplicate <= 20) {
             recursiveCopy($scope.timesToDuplicate, selectedNode.parentId, selectedNode.id);
         }
 
