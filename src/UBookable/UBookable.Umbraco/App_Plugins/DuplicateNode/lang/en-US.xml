@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
+  <creator>
+    <name>Lachlann Rattray</name>
+    <link>http://www.codepharaoh.co.uk</link>
+  </creator>
+  <area alias="DuplicateNode">
+    <key alias="duplicate">Duplicate</key>
+    <key alias="labelText">Other amount:</key>
+  </area>
+</language>

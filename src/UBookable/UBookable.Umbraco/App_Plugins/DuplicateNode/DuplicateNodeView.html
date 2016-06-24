@@ -1,0 +1,35 @@
+﻿
+<div ng-controller="DuplicateNode" id="DuplicateNodeControl">
+
+    <div class="umb-pane">
+        <h5><localize key="DuplicateNode_duplicate">Duplicate</localize> '{{Name}}'</h5>
+        <div class="form-row">
+            <p>Choose how many copies you would like to make:</p>
+            <button class="btn" ng-click="timesToDuplicate = 5">x5</button>
+            <button class="btn" ng-click="timesToDuplicate = 10">x10</button>
+            <button class="btn" ng-click="timesToDuplicate = 15">x15</button>
+        </div>
+        <div class="form-row">
+            <label><localize key="DuplicateNode_labelText">Other amount: </localize></label>
+            <input style="width:30px;" ng-model="timesToDuplicate" type="number" max="30" min="1" />
+        </div>
+        <div class="row">
+            <label>Auto publish?</label>
+            <input type="checkbox" ng-model="autoPublish" value="0"/>
+        </div>
+        <div class="row">
+            <label>Use lorem ipsum names?</label>
+            <input type="checkbox" ng-model="loremNames" value="0" />
+        </div>
+    </div>
+
+
+    <div class="umb-dialog-footer btn-toolbar umb-btn-toolbar">
+        <!-- ngIf: !busy --><a class="btn btn-link ng-scope" ng-click="nav.hideDialog()" ng-if="!busy">
+            <localize key="general_cancel">Cancel</localize>
+        </a>
+        <button class="btn btn-primary" ng-click="duplicate()" ng-disabled="busy">
+            <localize key="DuplicateNode_duplicate">Duplicate</localize>
+        </button>
+    </div>
+</div>

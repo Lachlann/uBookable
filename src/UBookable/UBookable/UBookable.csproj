@@ -303,6 +303,7 @@
     <Compile Include="Models\Calender\TimeSlot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Bookings.cs" />
+    <Compile Include="TreeEvents\DuplicateContent.cs" />
     <Compile Include="TypeConvertors\TimeTypeConvertor.cs" />
     <Compile Include="ViewModels\BookableSettings.cs" />
     <Compile Include="ViewModels\Time.cs" />

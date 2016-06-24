@@ -1,0 +1,22 @@
+﻿var loremIpsum = [
+    "Lorem ipsum",
+    "Dolor sit amet",
+    "Quisque euismod id sapien",
+    "Etiam dapibus",
+    "Suspendisse non convallis",
+    "Fusce sagittis",
+    "Vivamus in tincidunt",
+    "Ut vulputate tortor",
+    "Phasellus ultricies lacinia",
+    "Integer vitae nulla diam",
+    "Praesent finibus",
+    "Suis sollicitudin non",
+    "Dolor in mollis",
+    "Praesent convallis tincidunt",
+    "Sed faucibus",
+    "Bibendum felis posuere",
+    "Praesent ornare",
+    "Nulla sed lobortis",
+    "Mauris vel augue",
+    "Ut tortor diam"
+]

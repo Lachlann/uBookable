@@ -18,7 +18,7 @@ using Umbraco.Web;
 using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
-[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.2")]
+[assembly: PureLiveAssembly, System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -470,12 +470,12 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Bookings
+		/// Member booking Calendar
 		///</summary>
-		[ImplementPropertyType("bookings")]
-		public object Bookings
+		[ImplementPropertyType("memberBookingCalendar")]
+		public object MemberBookingCalendar
 		{
-			get { return this.GetPropertyValue("bookings"); }
+			get { return this.GetPropertyValue("memberBookingCalendar"); }
 		}
 
 		///<summary>

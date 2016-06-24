@@ -306,17 +306,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\MemberBookingCalender\EventListViewEditorDialog.controller.js" />
-    <Content Include="App_Plugins\MemberBookingCalender\lib\calendar.css" />
-    <Content Include="App_Plugins\MemberBookingCalender\lib\general.css" />
-    <Content Include="App_Plugins\MemberBookingCalender\MemberBookingCalender.controller.js" />
-    <Content Include="App_Plugins\MemberBookingCalender\MemberBookingCalender.html" />
-    <Content Include="App_Plugins\MemberBookingCalender\templates\event-list-view.html" />
-    <Content Include="App_Plugins\NodeBookingCalender\lib\calendar.css" />
-    <Content Include="App_Plugins\NodeBookingCalender\lib\general.css" />
-    <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.controller.js" />
-    <Content Include="App_Plugins\NodeBookingCalender\NodeBookingCalender.html" />
-    <Content Include="App_Plugins\NodeBookingCalender\templates\event-list-view.html" />
+    <Content Include="App_Plugins\DuplicateNode\DuplicateNode.controller.js" />
+    <Content Include="App_Plugins\DuplicateNode\DuplicateNodeView.html" />
+    <Content Include="App_Plugins\MemberBookingCalendar\MemberBookingListViewEditorDialog.controller.js" />
+    <Content Include="App_Plugins\MemberBookingCalendar\lib\calendar.css" />
+    <Content Include="App_Plugins\MemberBookingCalendar\lib\general.css" />
+    <Content Include="App_Plugins\MemberBookingCalendar\MemberBookingCalendar.controller.js" />
+    <Content Include="App_Plugins\MemberBookingCalendar\MemberBookingCalendar.html" />
+    <Content Include="App_Plugins\MemberBookingCalendar\templates\booking-list-view.html" />
+    <Content Include="App_Plugins\NodeBookingCalendar\lib\calendar.css" />
+    <Content Include="App_Plugins\NodeBookingCalendar\lib\general.css" />
+    <Content Include="App_Plugins\NodeBookingCalendar\NodeBookingCalendar.controller.js" />
+    <Content Include="App_Plugins\NodeBookingCalendar\NodeBookingCalendar.html" />
+    <Content Include="App_Plugins\NodeBookingCalendar\templates\booking-list-view.html" />
     <Content Include="App_Plugins\Timepicker\lib\timepickerstyle.css" />
     <Content Include="App_Plugins\Timepicker\Timepicker.controller.js" />
     <Content Include="App_Plugins\Timepicker\timepicker.html" />
@@ -834,14 +836,16 @@
     <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.post" />
     <Content Include="bower_components\mustache.js\wrappers\yui3\mustache.js.pre" />
     <Content Include="App_Plugins\Timepicker\package.manifest" />
-    <Content Include="App_Plugins\NodeBookingCalender\package.manifest" />
+    <Content Include="App_Plugins\NodeBookingCalendar\package.manifest" />
     <Content Include="bower_components\angular-simple-calendar\.bower.json" />
     <Content Include="bower_components\angular-simple-calendar\bower.json" />
     <Content Include="bower_components\angular-simple-calendar\README.md" />
     <Content Include="bower_components\angular-simple-calendar\src\angular-simple-calendar.coffee" />
     <Content Include="bower_components\angular-simple-calendar\src\angular-simple-calendar.scss" />
-    <Content Include="App_Plugins\NodeBookingCalender\EventListViewEditorDialog.controller.js" />
-    <Content Include="App_Plugins\MemberBookingCalender\package.manifest" />
+    <Content Include="App_Plugins\NodeBookingCalendar\NodeBookingListViewEditorDialog.controller.js" />
+    <Content Include="App_Plugins\MemberBookingCalendar\package.manifest" />
+    <Content Include="App_Plugins\DuplicateNode\lang\en-US.xml" />
+    <Content Include="App_Plugins\DuplicateNode\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
