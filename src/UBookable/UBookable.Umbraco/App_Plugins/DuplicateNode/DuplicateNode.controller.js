@@ -6,10 +6,10 @@ duplicateNodeCntrl.controller("DuplicateNode", function ($scope, $filter, $http,
     $scope.nodeId = selectedNode.id;
     $scope.timesToDuplicate = 1;
     $scope.Name = selectedNode.name;
-    console.log(selectedNode);
+
 
     $scope.duplicate = function () {
-        console.log($scope.autoPublish)
+
         if ($scope.timesToDuplicate <= 20) {
             recursiveCopy($scope.timesToDuplicate, selectedNode.parentId, selectedNode.id);
         }
@@ -25,11 +25,9 @@ duplicateNodeCntrl.controller("DuplicateNode", function ($scope, $filter, $http,
                if ($scope.loremNames) {
                    contentResource.getById(pathArray[pathArray.length - 1])
                       .then(function (content) {
-                          console.log(loremIpsum[remainingCopies]);
                           content.name = loremIpsum[remainingCopies];
                           contentResource.save(content, false, [])
                             .then(function (content) {
-                                console.log("Retrieved, updated and saved again");
                                 if ($scope.autoPublish) {
                                     contentResource.publishById(pathArray[pathArray.length - 1]);
                                 }

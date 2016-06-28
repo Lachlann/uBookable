@@ -306,6 +306,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\DuplicateNode\Data\lorem-ipsum-names.js" />
+    <Content Include="App_Plugins\DuplicateNode\duplicate-node-style.css" />
     <Content Include="App_Plugins\DuplicateNode\DuplicateNode.controller.js" />
     <Content Include="App_Plugins\DuplicateNode\DuplicateNodeView.html" />
     <Content Include="App_Plugins\MemberBookingCalendar\MemberBookingListViewEditorDialog.controller.js" />

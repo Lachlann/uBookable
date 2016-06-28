@@ -1,8 +1,16 @@
 ﻿<div class="umb-overlay umb-overlay-right"  ng-controller="NodeBookingListViewEditorDialog.Controller">
+
     <div class="umb-overlay-header">
         <h4 class="umb-overlay__title">{{model.DateTitle}} </h4>
         <p class="umb-overlay__subtitle">Edit existing bookings or create new ones.</p>
     </div>
+
+    <div ng-if="modalAlerts.length > 0" class="alerts">
+        <div class="alert alert-{{alert.Type}}" ng-repeat="alert in modalAlerts">
+            <strong>{{alert.Title}}</strong> {{alert.Text}}
+        </div>
+    </div>
+
 
     <div class="event-list-dialogue umb-overlay-container">
         <h2 ng-click="showBookings = !showBookings">Current bookings  <span ng-class="{'icon-add' :!showBookings,  'icon-remove' : showBookings}" class="pull-right large-icon"></span></h2>
@@ -25,9 +33,9 @@
             </div>
         </div>
 
-        <div class="new-booking-form ">
-            <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-add':!showAddNew,  'icon-remove' : showAddNew}" class="pull-right large-icon"></span></h2>
-            <form novalidate ng-show="showAddNew || model.Bookings.length ==0 ">
+        <div class="new-booking-form "> 
+            <h2 ng-click="showAddNew = !showAddNew">Add new booking <span ng-class="{'icon-add':!showAddNew ,  'icon-remove' : showAddNew }" class="pull-right large-icon"></span></h2>
+            <form novalidate ng-show="showAddNew  ">
                 <div class="member-choose" ng-show="!chosenMember">
                     <div class="umb-control-group">
                         <label>Find existing member:</label>
