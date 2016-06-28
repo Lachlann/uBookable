@@ -3,7 +3,11 @@
         <h4 class="umb-overlay__title">{{model.DateTitle}} </h4>
         <p class="umb-overlay__subtitle">Edit existing bookings or create new ones.</p>
     </div>
-
+    <div ng-if="modalAlerts.length > 0" class="alerts">
+        <div class="alert alert-{{alert.Type}}" ng-repeat="alert in modalAlerts">
+            <strong>{{alert.Title}}</strong> {{alert.Text}}
+        </div>
+    </div>
     <div class="event-list-dialogue umb-overlay-container">
         <h2>Current bookings </h2>
          <div class="Inner">

@@ -1,4 +1,6 @@
-﻿
+﻿.alerts > div {
+    margin-bottom:0px;
+}
 .dialogPad {
     padding: 3%;
 }

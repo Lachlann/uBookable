@@ -7,7 +7,19 @@
         $scope.hideCancelled = true;
         $scope.hideApproved = false;
         $scope.memberSearching = null;
-
+        $scope.modalAlerts = [];
+        var pruneAlerts = function () {
+            var thisMoment = moment();
+            for (var i = 0, length = $scope.modalAlerts.length; i < length; i++) {
+                var thisAlert = $scope.modalAlerts[i];
+                if (thisAlert !== undefined && !thisAlert.Persist && thisMoment.diff(thisAlert.Time) > thisAlert.EndofLife) {
+                    $scope.modalAlerts.splice(i, 1);
+                    $scope.$apply();
+                }
+            }
+        }
+        $scope.alertReviewInterval = setInterval(pruneAlerts, 1000);
+        $scope.$on("$destroy", function handleDestroyEvent() { clearInterval($scope.alertReviewInterval); });
 
         var daySelected = new Date($scope.dialogData.year, $scope.dialogData.month, $scope.dialogData.day);
         console.log(daySelected);
@@ -35,10 +47,33 @@
                 function successCallback(response) {
                     var newlyapproved = $filter('filter')($scope.model.Bookings, { BookingID: response.data.BookingID });
                     newlyapproved[0].Approved = true;
-                    notificationsService.success("Booking approved", "This event has been approved");
+
+                    var alert = {
+                        Title: "Booking approved",
+                        Text: "This booking has been approved",
+                        Type: "success",
+                        Time: moment(),
+                        EndofLife: 5000,
+                        Persist: false
+                    };
+                    $scope.modalAlerts.push(alert);
+
+
+                    //notificationsService.success("Booking approved", "This event has been approved");
     	        },
                 function errorCallback(response) {
-                    notificationsService.error("Booking approval failed", "Something went wrong, your event has not been approved.");
+
+                    var alert = {
+                        Title: "Booking approval failed",
+                        Text: "This booking has not been approved",
+                        Type: "danger",
+                        Time: moment(),
+                        EndofLife: 5000,
+                        Persist: false
+                    };
+                    $scope.modalAlerts.push(alert);
+
+                    //notificationsService.error("Booking approval failed", "Something went wrong, your event has not been approved.");
                 }
             );
     	}
@@ -51,10 +86,34 @@
                 function successCallback(response) {
                     var newlycanceled = $filter('filter')($scope.model.Bookings, { BookingID: response.data.BookingID });
                     newlycanceled[0].Cancelled = true;
-                    notificationsService.success("Booking approved", "This booking has been canceled");
+
+                    var alert = {
+                        Title: "Booking cancelled",
+                        Text: "This booking has been cancelled",
+                        Type: "success",
+                        Time: moment(),
+                        EndofLife: 5000,
+                        Persist: false
+                    };
+                    $scope.modalAlerts.push(alert);
+
+
+                    //notificationsService.success("Booking approved", "This booking has been canceled");
                 },
                 function errorCallback(response) {
-                    notificationsService.error("Booking cancelation failed", "Something went wrong, your event has not been approved.");
+
+                    var alert = {
+                        Title: "Booking cancelation failed",
+                        Text: "This booking has not been cancelled",
+                        Type: "danger",
+                        Time: moment(),
+                        EndofLife: 5000,
+                        Persist: false
+                    };
+                    $scope.modalAlerts.push(alert);
+
+
+                   // notificationsService.error("Booking cancelation failed", "Something went wrong, your event has not been approved.");
                 }
             );
     	}
@@ -71,10 +130,31 @@
                         var pos = $scope.model.Bookings.map(function (e) { return e.BookingID; }).indexOf(bookingId);
                         $scope.model.Bookings.splice(pos, 1);
                    
-                        notificationsService.success("Booking deleted", "This booking has been deleted permenantly");
+                        var alert = {
+                            Title: "Booking deleted",
+                            Text: "This booking has been deleted",
+                            Type: "success",
+                            Time: moment(),
+                            EndofLife: 5000,
+                            Persist: false
+                        };
+                        $scope.modalAlerts.push(alert);
+
+                       // notificationsService.success("Booking deleted", "This booking has been deleted permenantly");
                     },
                     function errorCallback(response) {
-                        notificationsService.error("Booking deletion failed", "Something went wrong, your event has not been approved.");
+
+                        var alert = {
+                            Title: "Booking deletion failed",
+                            Text: "This booking has not been deleted",
+                            Type: "danger",
+                            Time: moment(),
+                            EndofLife: 5000,
+                            Persist: false
+                        };
+                        $scope.modalAlerts.push(alert);
+
+                       // notificationsService.error("Booking deletion failed", "Something went wrong, your event has not been approved.");
                     }
                 );
     	    }

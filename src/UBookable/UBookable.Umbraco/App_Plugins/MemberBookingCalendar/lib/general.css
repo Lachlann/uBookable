@@ -1,7 +1,9 @@
 ﻿.dialogPad {
     padding: 3%;
 }
-
+.alerts > div {
+    margin-bottom:0px;
+}
 .large-icon {
     font-size:30px;
 }
